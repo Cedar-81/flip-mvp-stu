@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import Editor from "../../../../components/bookshelf/minicomponents/editor";
 import Note_creator from "../../../../components/bookshelf/minicomponents/note_creator";
-import { StudentContext } from "../../../../components/contexts/teachercontext";
+import { StudentContext } from "../../../../components/contexts/studentcontext";
 
 function New() {
   const { setNotetype, createtype } = useContext(StudentContext);

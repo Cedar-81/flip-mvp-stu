@@ -64,7 +64,9 @@ function Note_deletor() {
           }}
           className="cancel absolute right-5 cursor-pointer"
         >
-          <span class="material-icons text-accent_color text-base">close</span>
+          <span className="material-icons text-accent_color text-base">
+            close
+          </span>
         </div>
         <p className="text-xl text-center mx-auto font-medium max-w-full text-accent_color overflow-hidden">
           Delete Alert!!!

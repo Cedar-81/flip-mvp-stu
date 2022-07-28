@@ -48,33 +48,31 @@ function Displaynote() {
 
   console.log(creatednoteid);
 
+  const {
+    data: s_data,
+    error: s_error,
+    loading: s_loading,
+  } = useQuery(School_Note, {
+    variables: {
+      noteId: creatednoteid,
+    },
+  });
   if (notetype === "school") {
-    const {
-      data: s_data,
-      error: s_error,
-      loading: s_loading,
-    } = useQuery(School_Note, {
-      variables: {
-        noteId: creatednoteid,
-      },
-    });
-
     data = s_data;
     loading = s_loading;
     error = s_error;
   }
 
+  const {
+    data: p_data,
+    error: p_error,
+    loading: p_loading,
+  } = useQuery(Personal_Note, {
+    variables: {
+      personalNoteId: creatednoteid,
+    },
+  });
   if (notetype === "personal") {
-    const {
-      data: p_data,
-      error: p_error,
-      loading: p_loading,
-    } = useQuery(Personal_Note, {
-      variables: {
-        personalNoteId: creatednoteid,
-      },
-    });
-
     data = p_data;
     loading = p_loading;
     error = p_error;

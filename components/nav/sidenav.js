@@ -31,7 +31,7 @@ function Sidenav() {
           onClick={show_shelf}
           className="icon_con flex justify-center items-center h-[3rem] hover:text-main_color hover:shadow-lg text-accent_color cursor-pointer mt-4 hover:bg-accent_color"
         >
-          <span class="material-icons text-[30px] ">local_library</span>
+          <span className="material-icons text-[30px] ">local_library</span>
         </div>
         <div
           onClick={() => {
@@ -41,7 +41,7 @@ function Sidenav() {
           }}
           className="icon_con flex justify-center items-center h-[3rem] hover:text-main_color hover:shadow-lg text-accent_color cursor-pointer mt-4 hover:bg-accent_color"
         >
-          <span class="material-icons text-[30px] ">manage_accounts</span>
+          <span className="material-icons text-[30px] ">manage_accounts</span>
         </div>
       </div>
     </div>

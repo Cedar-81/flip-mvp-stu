@@ -146,7 +146,7 @@ function Personaldets() {
         onClick={() => setTopbaraction("Settings")}
         className="back cursor-pointer left-4 top-[40%]"
       >
-        <span class="material-icons text-accent_color">arrow_back_ios</span>
+        <span className="material-icons text-accent_color">arrow_back_ios</span>
       </div>
       {/* <button className="w-[7rem] py-2 font-semibold text-md top-[13%] hover:border-2 hover:text-accent_color hover:shadow-md hover:bg-[transparent] hover:border-accent_color fixed right-8 bg-accent_color text-main_color rounded-full">
         Save

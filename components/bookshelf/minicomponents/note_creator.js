@@ -77,7 +77,9 @@ function Note_creator() {
           }}
           className="cancel absolute right-5 cursor-pointer"
         >
-          <span class="material-icons text-accent_color text-base">close</span>
+          <span className="material-icons text-accent_color text-base">
+            close
+          </span>
         </div>
         <p className="text-xl text-center mx-auto max-w-full overflow-hidden">
           {notetitle}

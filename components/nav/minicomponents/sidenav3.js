@@ -53,41 +53,39 @@ function Sidenav3() {
   let error;
   let loading;
 
+  const {
+    data: p_data,
+    error: p_error,
+    loading: p_loading,
+  } = useQuery(Note, {
+    variables: {
+      studentId: studentid,
+    },
+  });
   if (notetype === "personal") {
-    const {
-      data: p_data,
-      error: p_error,
-      loading: p_loading,
-    } = useQuery(Note, {
-      variables: {
-        studentId: studentid,
-      },
-    });
     data = p_data;
     error = p_error;
     loading = p_loading;
   }
 
+  const {
+    data: s_data,
+    error: s_error,
+    loading: s_loading,
+  } = useQuery(SchoolNotes, {
+    variables: {
+      authorId: classcoursedata.teacherId,
+      courseId: classcoursedata.courseId,
+      classId: classcoursedata.classId,
+      noteType: notetype,
+    },
+  });
   if (notetype === "school") {
-    const {
-      data: s_data,
-      error: s_error,
-      loading: s_loading,
-    } = useQuery(SchoolNotes, {
-      variables: {
-        authorId: classcoursedata.teacherId,
-        courseId: classcoursedata.courseId,
-        classId: classcoursedata.classId,
-        noteType: notetype,
-      },
-    });
-
     data = s_data;
     error = s_error;
     loading = s_loading;
   }
 
-  console.log("da", data);
   useEffect(() => {
     if (notetype === "school") {
       if (classcoursedata.teacherId === "" || classcoursedata.courseId === "") {
@@ -151,9 +149,10 @@ function Sidenav3() {
 
   let selected_notes;
 
-  selected_notes = notes.map((val) => {
+  selected_notes = notes.map((val, index) => {
     return (
       <p
+        key={index}
         onClick={() => read_note(val.id)}
         className="text hover:text-accent_color cursor-pointer py-2"
       >
@@ -214,7 +213,7 @@ function Sidenav3() {
           }}
           className="new_con flex sticky bg-main_color top-5 text-sm items-center py-2 px-2 mt-11 cursor-pointer hover:text-accent_color"
         >
-          <span class="material-icons text-accent_color">edit</span>
+          <span className="material-icons text-accent_color">edit</span>
           <p className="text ml-3 font-semibold">Create</p>
         </div>
       )}
@@ -235,7 +234,7 @@ function Sidenav3() {
             {data && data.notes && data.notes.length === 0 && (
               <div className="items mx-3 mt-1 h-[50%] text-xs flex items-center text-accent_bkg_dark_color text-center">
                 <div className="flex-row">
-                  <span class="material-icons text-6xl font-semibold text-accent_bkg_dark_color">
+                  <span className="material-icons text-6xl font-semibold text-accent_bkg_dark_color">
                     sentiment_very_dissatisfied
                   </span>
                   {selected_notes}
@@ -252,7 +251,7 @@ function Sidenav3() {
           {data && data.personal_notes && data.personal_notes.length === 0 && (
             <div className="items mx-3 mt-1 h-[50%] text-xs flex items-center text-accent_bkg_dark_color text-center">
               <div className="flex-row">
-                <span class="material-icons text-6xl font-semibold text-accent_bkg_dark_color">
+                <span className="material-icons text-6xl font-semibold text-accent_bkg_dark_color">
                   sentiment_very_dissatisfied
                 </span>
                 {selected_notes}
@@ -268,7 +267,7 @@ function Sidenav3() {
         (classcoursedata.classId === "" || classcoursedata.courseId === "") && (
           <div className="items mx-3 mt-1 h-[70%] text-xs flex items-center text-accent_bkg_dark_color text-center">
             <div className="flex-row">
-              <span class="material-icons text-6xl font-semibold text-accent_bkg_dark_color">
+              <span className="material-icons text-6xl font-semibold text-accent_bkg_dark_color">
                 hourglass_empty
               </span>
               {selected_notes}

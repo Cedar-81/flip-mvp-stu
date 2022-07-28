@@ -6,7 +6,7 @@ function Notifications() {
       <div className="notification w-full md:w-[20rem] md:h-[20rem] md:rounded-md items-center h-full bg-main_color">
         <div className="flex mt-4 md:mt-0 md:hidden">
           <div className="icon_con rounded-full h-10 w-10 cursor-pointer flex justify-center items-center">
-            <span class="material-symbols-outlined text-md">
+            <span className="material-symbols-outlined text-md">
               arrow_back_ios_new
             </span>
           </div>

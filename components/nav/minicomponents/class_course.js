@@ -122,7 +122,7 @@ function Class_course() {
                 }
                 className="item cursor-pointer sticky top-4 flex bg-accent_color_2 w-[95%] mb-4 px-4 h-[3rem] items-center mx-auto rounded-xl"
               >
-                <span class="material-icons text-accent_color">add</span>
+                <span className="material-icons text-accent_color">add</span>
                 <p className="item_text md:text-sm ml-4 text-xl font-medium">
                   Add class
                 </p>
@@ -153,7 +153,7 @@ function Class_course() {
                 }
                 className="item cursor-pointer sticky top-4 flex bg-accent_color_2 w-[95%] mb-4 px-4 h-[3rem] items-center mx-auto rounded-xl"
               >
-                <span class="material-icons text-accent_color">add</span>
+                <span className="material-icons text-accent_color">add</span>
                 <p className="item_text md:text-sm ml-4 text-xl font-medium">
                   Add course
                 </p>

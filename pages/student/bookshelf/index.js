@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { StudentContext } from "../../../components/contexts/studentcontext";
 import Welcome from "../../../public/assets/SVG/welcome.svg";
 
-function index() {
+function Index() {
   const { setTopbaraction } = useContext(StudentContext);
   useEffect(() => {
     setTopbaraction("Welcome");
@@ -25,4 +25,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

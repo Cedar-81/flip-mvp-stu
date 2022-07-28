@@ -11,7 +11,7 @@ function Sidebar2() {
             onClick={() => {
               setSidebartype("");
             }}
-            class="material-symbols-outlined text-md"
+            className="material-symbols-outlined text-md"
           >
             arrow_back_ios_new
           </span>
@@ -40,7 +40,7 @@ function Sidebar2() {
             }}
             className="item flex pl-2 text-sm cursor-pointer py-2 hover:text-accent_color mb-3 items-center"
           >
-            <span class="material-symbols-outlined text-accent_color">
+            <span className="material-symbols-outlined text-accent_color">
               verified_user
             </span>
             <p className="text ml-3 text-xl font-medium">Personal Notes</p>
@@ -52,7 +52,7 @@ function Sidebar2() {
             }}
             className="item flex pl-2 text-sm cursor-pointer py-2 hover:text-accent_color mb-3 items-center"
           >
-            <span class="material-symbols-outlined text-accent_color">
+            <span className="material-symbols-outlined text-accent_color">
               school
             </span>
             <p className="text text-xl ml-3 font-medium">School Notes</p>

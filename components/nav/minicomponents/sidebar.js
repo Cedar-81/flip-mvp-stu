@@ -17,13 +17,13 @@ function Sidebar() {
           onClick={() => setSidebartype("bar2")}
           className="icon_con flex justify-center items-center h-[3rem] hover:text-main_color hover:shadow-lg text-accent_color cursor-pointer mt-6 hover:bg-accent_color"
         >
-          <span class="material-icons text-[40px] ">local_library</span>
+          <span className="material-icons text-[40px] ">local_library</span>
         </div>
         <div
           onClick={() => router.push("/teacher/settings")}
           className="icon_con flex justify-center items-center h-[3rem] hover:text-main_color hover:shadow-lg text-accent_color cursor-pointer mt-6 hover:bg-accent_color"
         >
-          <span class="material-icons text-[40px] ">manage_accounts</span>
+          <span className="material-icons text-[40px] ">manage_accounts</span>
         </div>
       </div>
     </div>

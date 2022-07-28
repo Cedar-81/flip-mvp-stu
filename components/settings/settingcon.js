@@ -17,7 +17,7 @@ function Settingcon() {
           >
             <div className="flex justify-between w-full items-center">
               <p className="text text-lg">Personal</p>
-              <span class="material-icons text-accent_color ">
+              <span className="material-icons text-accent_color ">
                 arrow_drop_down
               </span>
             </div>

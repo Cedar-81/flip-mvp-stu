@@ -33,7 +33,7 @@ function Topnav() {
   if (loading) {
     val = "...";
   }
-  if (data) {
+  if (data && data.student) {
     val = data.student.firstName;
   }
 

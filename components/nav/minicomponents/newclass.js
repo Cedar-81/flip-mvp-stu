@@ -65,20 +65,23 @@ function Newclass() {
     try {
       await add_class({ variables: { input: inputVal } });
     } catch (e) {
-      setTimeout(() => {
-        setClasscoursedata({
+      setClasscoursedata(
+        {
           ...classcoursedata,
           action: "",
           working: true,
           workingText: "Invalid class code",
-        });
-      }, 2000);
+        },
+        2000
+      );
+    }
+    setTimeout(() => {
       setClasscoursedata({
         ...classcoursedata,
         action: "",
         working: false,
       });
-    }
+    });
   };
 
   return (

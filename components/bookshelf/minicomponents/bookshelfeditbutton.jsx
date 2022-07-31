@@ -96,9 +96,9 @@ function Bookshelfeditbutton() {
           >
             <span className="material-icons text-accent_color">edit</span>
           </div>
-          <div className="bg-main_color h-[3rem] flex items-center justify-center rounded-full shadow-md cursor-pointer w-[3rem] mb-4">
+          {/* <div className="bg-main_color h-[3rem] flex items-center justify-center rounded-full shadow-md cursor-pointer w-[3rem] mb-4">
             <span className="material-icons text-accent_color">share</span>
-          </div>
+          </div> */}
           <div
             onClick={delete_note}
             className="bg-main_color h-[3rem] flex items-center justify-center rounded-full shadow-md cursor-pointer w-[3rem] mb-4"

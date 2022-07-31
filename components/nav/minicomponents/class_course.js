@@ -18,6 +18,10 @@ const StudentTeacherCourse = gql`
         id
         course
       }
+      class {
+        id
+        class
+      }
     }
   }
 `;
@@ -42,6 +46,10 @@ function Class_course() {
     teachers = <p>loading...</p>;
   }
 
+  if (error) {
+    console.log(JSON.stringify(error, null, 2));
+  }
+
   if (data) {
     console.log(data);
     teachers = data.studentteachercourse.map((val, index) => {
@@ -58,9 +66,11 @@ function Class_course() {
           }}
           className="item cursor-pointer flex bg-accent_bkg_color w-[95%] mb-4 px-4 h-[3rem] items-center mx-auto rounded-xl"
         >
-          <input type="checkbox" className="w-5 h-4" />
           <p className="item_text md:text-sm ml-4 text-xl font-semibold">
-            {val.teacher.firstName + " " + val.teacher.lastName}
+            {val.class.class}
+            <span className="text-xs block font-normal">
+              {val.teacher.firstName + " " + val.teacher.lastName}
+            </span>
           </p>
         </div>
       );
@@ -70,7 +80,7 @@ function Class_course() {
   useEffect(() => {
     if (data && action === "Course") {
       let val = data.studentteachercourse.filter(
-        (val) => val.teacherId === classcoursedata.teacherId
+        (val) => val.classId === classcoursedata.classId
       );
       console.log(val);
       val = val[0].courseList;
@@ -88,7 +98,6 @@ function Class_course() {
         }}
         className="item cursor-pointer flex bg-accent_bkg_color w-[95%] mb-4 px-4 h-[3rem] items-center mx-auto rounded-xl"
       >
-        <input type="checkbox" className="w-5 h-4" />
         <p className="item_text md:text-sm ml-4 text-xl font-semibold">
           {val.course}
         </p>
@@ -97,7 +106,14 @@ function Class_course() {
   });
 
   return (
-    <div className="nav_displays fixed bg-main_color md:right-[6rem] md:pt-0 md:mt-4 md:h-max md:w-max md:rounded-md md:shadow-md top-[10%] h-[90%] w-[100vw] ">
+    <div className="nav_displays z-50 fixed overflow-y-auto md:top-[9%] bg-main_color md:right-[6rem] md:pt-0 md:mt-4 md:h-max md:w-max md:rounded-md md:shadow-md top-0 h-[90%] w-[100vw]">
+      {classcoursedata.working && (
+        <div className="w-full absolute z-10 top-1 flex items-center justify-center ">
+          <p className="py-2 text-xs px-4 text-center mx-auto shadow-lg bg-accent_color text-main_color">
+            {classcoursedata.workingText}Just a moment
+          </p>
+        </div>
+      )}
       <div className="class_course w-full md:w-[20rem] pt-4 md:pt-0 bg-accent_bkg_color md:bg-main_color md:h-[20rem] md:rounded-md items-center h-full">
         <div className="flex md:mt-0 md:hidden">
           <div className="icon_con rounded-full h-10 w-10 cursor-pointer flex justify-center items-center">
@@ -144,18 +160,9 @@ function Class_course() {
                   Change Class
                 </p>
               </div>
-              <div
-                onClick={() =>
-                  setClasscoursedata({
-                    ...classcoursedata,
-                    action: "new_class",
-                  })
-                }
-                className="item cursor-pointer sticky top-4 flex bg-accent_color_2 w-[95%] mb-4 px-4 h-[3rem] items-center mx-auto rounded-xl"
-              >
-                <span className="material-icons text-accent_color">add</span>
+              <div className="item cursor-pointer sticky top-4 flex bg-accent_color_2 w-[95%] mb-4 px-4 h-[3rem] items-center mx-auto rounded-xl">
                 <p className="item_text md:text-sm ml-4 text-xl font-medium">
-                  Add course
+                  Available courses
                 </p>
               </div>
               {courses}

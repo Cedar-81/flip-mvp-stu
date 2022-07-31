@@ -10,6 +10,7 @@ export const resolvers = {
         include: {
           teacher: true,
           courseList: true,
+          class: true,
         },
       });
       return value;
@@ -43,14 +44,12 @@ export const resolvers = {
       const value = await context.prisma.teacher_Note.findMany({
         where: {
           teacherId: args.teacherId,
+          courseId: args.courseId,
+          category: args.category,
+          available: true,
         },
       });
-      return value.filter(
-        (_note) =>
-          _note.courseId === args.courseId &&
-          _note.classId.includes(args.classId) &&
-          _note.category === args.noteType
-      );
+      return value;
     },
 
     note: async (parent, args, context) => {
@@ -120,6 +119,41 @@ export const resolvers = {
       };
       return await context.prisma.student_Note.create({
         data: newNote,
+      });
+    },
+
+    addStudentTeacherCourse: async (parent, { input }, context) => {
+      const data = await context.prisma.class.findUnique({
+        where: {
+          classCode: input.classCode,
+        },
+        include: {
+          courses: true,
+        },
+      });
+      const classlist = [];
+      data.courses.forEach((course) => {
+        classlist.push({
+          id: course.id,
+        });
+      });
+      const inputData = {
+        studentId: input.studentId,
+        classId: data.id,
+        teacherId: data.teacherId,
+        courseList: {
+          connect: classlist,
+        },
+        verified: true,
+      };
+
+      return await context.prisma.student_Teacher_Course.create({
+        data: inputData,
+        include: {
+          courseList: true,
+          teacher: true,
+          class: true,
+        },
       });
     },
 

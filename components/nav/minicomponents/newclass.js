@@ -1,8 +1,75 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StudentContext } from "../../contexts/studentcontext";
+import { gql, useMutation } from "@apollo/client";
+
+const AddClass = gql`
+  mutation AddStudentTeacherCourse($input: addSTUInput) {
+    addStudentTeacherCourse(input: $input) {
+      id
+      studentId
+    }
+  }
+`;
+
+const StudentTeacherCourse = gql`
+  query Studentteachercourse($studentId: ID!) {
+    studentteachercourse(studentId: $studentId) {
+      id
+      studentId
+      classId
+      teacherId
+      verified
+      teacher {
+        firstName
+        lastName
+      }
+      courseList {
+        id
+        course
+      }
+      class {
+        id
+        class
+      }
+    }
+  }
+`;
 
 function Newclass() {
-  const { setClasscoursedata, classcoursedata } = useContext(StudentContext);
+  const { setClasscoursedata, classcoursedata, studentid } =
+    useContext(StudentContext);
+  const [classcode, setClasscode] = useState("");
+
+  const [add_class, { data, loading, error }] = useMutation(AddClass, {
+    refetchQueries: [
+      { query: StudentTeacherCourse, variables: { studentId: studentid } },
+      "studentteachercourse",
+    ],
+  });
+
+  if (loading) console.log("Creating...");
+  if (error) console.log(JSON.stringify(error, null, 2));
+
+  const inputVal = {
+    classCode: classcode,
+    studentId: studentid,
+  };
+
+  const add = async () => {
+    setClasscoursedata({
+      ...classcoursedata,
+      action: "",
+      working: true,
+      workingText: "Adding...",
+    });
+    await add_class({ variables: { input: inputVal } });
+    setClasscoursedata({
+      ...classcoursedata,
+      action: "",
+      working: false,
+    });
+  };
+
   return (
     <div className="w-full h-[100vh] fixed top-0 z-50 bg-dark_color">
       <div className="w-[20rem] relative min-h-[11rem] h-max mt-[13%] bg-accent_bkg_color pt-[1rem] rounded-lg shadow-lg px-[1rem] mx-auto my-auto ">
@@ -15,20 +82,20 @@ function Newclass() {
           </span>
         </div>
         <p className="text-xl text-center mx-auto max-w-full overflow-hidden">
-          {/* {notetitle} */}
+          Add Class
         </p>
         <input
           type={"text"}
-          //   onChange={(e) => setNotetitle(e.target.value)}
+          onChange={(e) => setClasscode(e.target.value)}
           className="w-full h-10 px-2 mt-[1.2rem] focus:shadow-lg focus:bg-main_color rounded-md outline-none"
-          placeholder="Enter new classname"
+          placeholder="Enter class code"
         />
         <div className="w-full flex justify-end">
           <button
-            // onClick={() => create()}
+            onClick={() => add()}
             className="bg-accent_color cursor-pointer hover:shadow-md text-main_color px-4 relative mt-5 mb-5 py-1 rounded-md text-base"
           >
-            Create
+            Add
           </button>
         </div>
       </div>

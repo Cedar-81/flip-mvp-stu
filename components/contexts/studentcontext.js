@@ -23,6 +23,8 @@ function Studentcontextprovider({ children }) {
     courseId: "",
     classId: "",
     action: "",
+    working: false,
+    workingText: "",
   });
   const [notedata, setNotedata] = useState({
     updateNote: false,

@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StudentContext } from "../contexts/studentcontext";
 import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 
 const StudentInfo = gql`
   query Student($studentId: ID!) {
     student(studentId: $studentId) {
       id
       firstName
+      image
     }
   }
 `;
@@ -21,9 +23,11 @@ function Topnav() {
     toggle_menu,
     topbaraction,
     studentid,
+    studentprofile,
+    setTopbaraction,
   } = useContext(StudentContext);
 
-  console.log("rerendered");
+  const router = useRouter();
 
   const { data, error, loading } = useQuery(StudentInfo, {
     variables: { studentId: studentid },
@@ -31,14 +35,22 @@ function Topnav() {
 
   let val = "...";
   if (loading) {
-    val = "...";
+    val = "loading...";
   }
   if (data && data.student) {
     val = data.student.firstName;
   }
 
+  useEffect(() => {
+    if (typeof document !== "undefined" && data) {
+      document.getElementById(
+        "profile_img"
+      ).style.backgroundImage = `url(${data.student.image})`;
+    }
+  }, [studentprofile, data]);
+
   return (
-    <div className="topnav fixed md:w-[95%] z-10 top-0 flex justify-between h-[10%] items-center w-full shadow-md md:px-8 bg-accent_bkg_color">
+    <div className="topnav fixed md:w-[95%] z-[60] top-0 flex justify-between h-[6rem] md:h-[10%] items-center w-full shadow-md md:px-8 bg-accent_bkg_color">
       {create && (
         <input
           placeholder="Untitled"
@@ -56,8 +68,15 @@ function Topnav() {
       )}
       <div className="right flex justify-between md:w-max w-full md:flex-row-reverse ">
         <div className="profile flex md:flex-row-reverse items-center">
-          <div className="profile_img rounded-full cursor-pointer h-10 ml-4 w-10 bg-main_color shadow-md"></div>
-          <h2 className="greeting font-medium text-[100% + 4rem] md:w-max w-2 ml-2">
+          <div
+            onClick={() => {
+              setTopbaraction("Personal");
+              router.push("/student/settings");
+            }}
+            id="profile_img"
+            className="profile_img rounded-full cursor-pointer bg-no-repeat bg-cover bg-center h-[3rem] md:h-10 md:w-10 ml-4 w-[3rem] bg-main_color shadow-md"
+          ></div>
+          <h2 className="greeting font-medium text-[2rem] md:text-[1rem] w-max ml-2">
             Hello, {val}!
           </h2>
         </div>

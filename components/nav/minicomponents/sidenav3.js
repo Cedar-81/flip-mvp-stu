@@ -18,15 +18,17 @@ const SchoolNotes = gql`
     $courseId: ID!
     $classId: ID!
     $noteType: String!
+    $available: Boolean!
   ) {
     notes(
       authorId: $authorId
       courseId: $courseId
       classId: $classId
       noteType: $noteType
+      available: $available
     ) {
-      topic
       id
+      topic
     }
   }
 `;
@@ -78,6 +80,7 @@ function Sidenav3() {
       courseId: classcoursedata.courseId,
       classId: classcoursedata.classId,
       noteType: notetype,
+      available: true,
     },
   });
   if (notetype === "school") {
@@ -98,7 +101,7 @@ function Sidenav3() {
         ]);
       } else {
         if (loading) {
-          setNotes([{ topic: "...", id: "..." }]);
+          setNotes([{ topic: "loading...", id: "..." }]);
         }
         if (error) {
           console.log(JSON.stringify(error, null, 2));
@@ -128,7 +131,7 @@ function Sidenav3() {
 
     if (notetype === "personal") {
       if (loading) {
-        setNotes([{ topic: "...", id: "..." }]);
+        setNotes([{ topic: "loading...", id: "..." }]);
       }
       if (error) {
         console.log(JSON.stringify(error, null, 2));
@@ -195,7 +198,7 @@ function Sidenav3() {
   };
 
   return (
-    <div className="w-[15%]  overflow-y-auto fixed ml-[20%] z-[15] h-[100%] bg-main_color shadow-lg">
+    <div className="w-[15%]  overflow-y-auto fixed ml-[20%] z-[61] h-[100%] bg-main_color shadow-lg">
       <div
         onClick={() => setShelf3(false)}
         className="icon_con bg-main_color mt-4 w-full sticky top-1 cursor-pointer text-right"

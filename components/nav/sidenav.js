@@ -8,15 +8,11 @@ function Sidenav() {
   const { setShelf2, setCreate, setTopbaraction, topbaraction } =
     useContext(StudentContext);
 
-  console.log("here");
-
   const show_shelf = () => {
     if (router.query.id === undefined) {
-      console.log("bla");
       router.push("/student/bookshelf");
-      console.log(true);
     }
-    console.log("router", router.query.id);
+
     setTopbaraction("Notes");
     setShelf2(true);
   };

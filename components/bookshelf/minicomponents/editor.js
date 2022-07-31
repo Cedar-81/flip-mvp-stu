@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useCallback, useEffect, useState } from "react";
-import "quill/dist/quill.snow.css";
+import "quill/dist/quill.bubble.css";
 import { StudentContext } from "../../contexts/studentcontext";
 import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
@@ -82,8 +82,6 @@ function Editor({ edit_content }) {
     }
   }, []);
 
-  console.log("I am here ");
-
   if (notedata.updateNote) {
     refectch = {
       refetchQueries: [
@@ -112,9 +110,16 @@ function Editor({ edit_content }) {
 
   const save_note = async () => {
     setSavenote(true);
+    setTextChange("Saving...Just a moment");
     await updateStudentNote({ variables: { input: inputVal } });
     setSavenote(false);
     setUpdatenotechecker(false);
+    setNotedata({
+      ...notedata,
+      updateNote: false,
+      updateContent: "",
+      ready: false,
+    });
     router.push("/student/bookshelf/" + notetype + "/" + creatednoteid);
   };
 
@@ -122,23 +127,9 @@ function Editor({ edit_content }) {
     if (updatenotechecker) {
       save_note();
     }
-    if (notedata.updateNote) {
-      updateStudentNote({ variables: { input: inputVal } });
-    }
-    if (notedata.ready) {
-      if (quill !== undefined) {
-        quill.on("text-change", (delta, oldDelta, source) => {
-          if (source == "user") {
-            updateStudentNote({ variables: { input: inputVal } });
-          }
-        });
-      }
-    }
-  }, [notetitle, editablecontent, notecontent, quill]);
-  console.log("created id", creatednoteid);
+  }, []);
 
   useEffect(() => {
-    console.log("bla bla bla", notedata.ready, notedata.updateNote);
     if (quill !== undefined && notedata.updateNote) {
       quill.root.innerHTML = notedata.updateContent;
       quill.enable();
@@ -169,7 +160,7 @@ function Editor({ edit_content }) {
     if (typeof document !== "undefined") {
       let Quill = load_quill();
       const q = new Quill(editor, {
-        theme: "snow",
+        theme: "bubble",
         modules: { toolbar: TOOLBAR_OPTIONS },
       });
       setQuill(q);
@@ -179,12 +170,11 @@ function Editor({ edit_content }) {
       }
     }
   }, []);
-
   return (
     <>
       {savenote && (
         <div className="w-full flex items-center justify-center border-2">
-          <p className="fixed py-2 text-xs px-4 text-center mx-auto shadow-lg bg-accent_color text-main_color top-[17%]">
+          <p className="fixed py-2 text-xs px-4 z-[55] text-center mx-auto shadow-lg bg-accent_color text-main_color top-[17%]">
             Saving... Just a moment
           </p>
         </div>

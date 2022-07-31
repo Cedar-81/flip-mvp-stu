@@ -11,6 +11,7 @@ export const typeDefs = gql`
       courseId: ID!
       classId: ID!
       noteType: String!
+      available: Boolean!
     ): [Teacher_Note]!
     note(id: ID!): Teacher_Note
   }
@@ -20,16 +21,18 @@ export const typeDefs = gql`
     updateStudentNote(input: updateStudentNoteInput): Student_Note!
     updateStudentProfile(input: updateStudentProfileInput): Student!
     deleteStudentNote(input: deleteStudentNoteInput): String
+    addStudentTeacherCourse(input: addSTUInput): Student_Teacher_Course
   }
 
   type Teacher_Note {
     id: String!
     topic: String
-    classId: [String!]!
+    classId: String!
     courseId: String!
     category: String
     content: String
     editableContent: String
+    available: Boolean
     authorId: String
     updatedAt: String
   }
@@ -58,7 +61,16 @@ export const typeDefs = gql`
     teacher: Teacher
     teacherId: String
     courseList: [Course]
+    class: Class
     verified: Boolean
+  }
+
+  type Class {
+    id: String!
+    class: String
+    teacherId: String!
+    courses: [Course]
+    classCode: String
   }
 
   type Course {
@@ -106,6 +118,11 @@ export const typeDefs = gql`
     class: String
     updatedAt: String
     password: String
+  }
+
+  input addSTUInput {
+    classCode: String!
+    studentId: String!
   }
 
   input addStudentNoteInput {

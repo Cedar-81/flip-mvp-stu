@@ -165,13 +165,12 @@ function Sidenav3() {
   });
 
   const new_note = () => {
-    setSidebartype("");
-    setCreate(true);
-    setCreatetype("untitled");
-    if (notetype == "school")
-      return router.push("/student/bookshelf/school/new");
-    if (notetype == "personal")
+    if (notetype === "personal") {
+      setSidebartype("");
+      setCreate(true);
+      setCreatetype("untitled");
       return router.push("/student/bookshelf/personal/new");
+    }
   };
 
   const read_note = (id) => {
@@ -207,9 +206,7 @@ function Sidenav3() {
           arrow_back_ios
         </span>
       </div>
-      {(notetype === "personal" ||
-        (classcoursedata.classId !== "" &&
-          classcoursedata.courseId !== "")) && (
+      {notetype === "personal" && (
         <div
           onClick={() => {
             new_note();

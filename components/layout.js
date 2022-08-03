@@ -31,7 +31,7 @@ function Layout({ children }) {
 
   return (
     <div className="flex w-[100%] max-w-[100%] h-[100vh] ">
-      {isAuth && (
+      {!isAuth && (
         <div className="contents border-2">
           <div className="sidebar_displays md:none z-40 w-max top-0 h-full absolute bg-main_color">
             {sidebartype == "bar2" && <Sidebar2 />}
@@ -46,7 +46,7 @@ function Layout({ children }) {
         </div>
       )}
       <div className="w-[100vw] md:w-[95%] md:ml-[5%]">
-        {isAuth && <Topnav />}
+        {!isAuth && <Topnav />}
         <div className=" h-full pb-4">
           {notification && <Notifications />}
           {class_course && <Class_course />}

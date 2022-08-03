@@ -22,6 +22,9 @@ export const typeDefs = gql`
     updateStudentProfile(input: updateStudentProfileInput): Student!
     deleteStudentNote(input: deleteStudentNoteInput): String
     addStudentTeacherCourse(input: addSTUInput): Student_Teacher_Course
+    createStudent(input: createStudentInput): String
+    verifyEmail(input: verifyEmailInput): String
+    signIn(input: signInInput): String
   }
 
   type Teacher_Note {
@@ -120,9 +123,36 @@ export const typeDefs = gql`
     password: String
   }
 
+  input createStudentInput {
+    firstName: String
+    lastName: String
+    address: String
+    state: String
+    country: String
+    postalCode: String
+    email: String
+    image: String
+    dateOfBirth: String
+    phoneNo: String
+    class: String
+    emailCode: String
+    updatedAt: String
+    password: String
+  }
+
+  input signInInput {
+    email: String!
+    password: String!
+  }
+
   input addSTUInput {
     classCode: String!
     studentId: String!
+  }
+
+  input verifyEmailInput {
+    email: String!
+    code: String!
   }
 
   input addStudentNoteInput {

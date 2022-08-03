@@ -18,7 +18,9 @@ model Teacher {
   state String
   country String
   postalCode String
-  email String
+  email String @unique
+  verifiedEmail Boolean @default(false)
+  emailCode String @default("")
   image String
   phoneNo String
   classes Class[]
@@ -36,15 +38,17 @@ model Student {
   state String
   country String
   postalCode String
-  email String
+  email String @unique
+  verifiedEmail Boolean @default(false)
+  emailCode String @default("")
   image String
-  dateOfBirth DateTime
+  dateOfBirth String
   phoneNo String?
   class String
   notes Student_Note[]
   createdAt DateTime @default(now())
   updatedAt DateTime 
-  password String 
+  password String
 }
 
 model Course {

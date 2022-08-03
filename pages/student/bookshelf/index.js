@@ -2,11 +2,13 @@ import React, { useContext, useEffect } from "react";
 import { StudentContext } from "../../../components/contexts/studentcontext";
 import Welcome from "../../../public/assets/SVG/welcome.svg";
 
-function Index() {
+function Index({ props }) {
+  console.log(props);
   const { setTopbaraction } = useContext(StudentContext);
   useEffect(() => {
     setTopbaraction("Welcome");
   }, []);
+
   return (
     <div className="pt-[7%] h-[100vh] flex-row items-center justify-center w-full ">
       <Welcome className="h-[67%] mt-8 mx-auto opacity-75" />

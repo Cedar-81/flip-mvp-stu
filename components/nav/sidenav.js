@@ -18,7 +18,7 @@ function Sidenav() {
   };
 
   return (
-    <div className="w-[5%] bg-main_color fixed shadow-lg z-30 top-0 h-[100%]">
+    <div className="w-[5%] bg-main_color fixed shadow-lg z-[67] top-0 h-[100%]">
       <div className="mt-[2rem] px-2">
         <Image src="/assets/logo.png" width={67} height={28} />
       </div>

@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useContext, useState, useEffect } from "react";
 import { StudentContext } from "../../contexts/studentcontext";
 import { gql, useQuery } from "@apollo/client";
+import apolloClient from "../../../lib/apolloClient";
 
 const Note = gql`
   query Notes($authorId: ID!, $courseId: ID!, $classId: ID!) {
@@ -12,7 +13,10 @@ const Note = gql`
   }
 `;
 
-function Sidebar3() {
+let variables2 = {};
+
+function Sidebar3({ props }) {
+  console.log("props", props);
   const router = useRouter();
   const {
     setShelf3,
@@ -28,13 +32,17 @@ function Sidebar3() {
 
   const [notes, setNotes] = useState([]);
 
-  const { data, error, loading } = useQuery(Note, {
+  const { data, error, loading, refetch } = useQuery(Note, {
     variables: {
       authorId: teacherid,
       courseId: classcoursedata.courseId,
       classId: classcoursedata.classId,
       noteType: notetype,
     },
+  });
+
+  apolloClient.refetchQueries({
+    include: "all",
   });
 
   useEffect(() => {
@@ -141,9 +149,14 @@ function Sidebar3() {
           </h3>
         )}
         {notetype == "school" && (
-          <h3 className="text-lg font-semibold mt-5 ml-2 text-accent_color">
-            TOPICS
-          </h3>
+          <div className=" justify-between">
+            <h3 className="text-lg font-semibold mt-5 ml-2 text-accent_color">
+              TOPICS
+            </h3>
+            <div className="bg-accent_color">
+              <span className="material-icons text-sm">refresh</span>
+            </div>
+          </div>
         )}
         {classcoursedata.classId !== "" && classcoursedata.courseId !== "" && (
           <>

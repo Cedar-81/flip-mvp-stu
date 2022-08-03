@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { StudentContext } from "../../contexts/studentcontext";
 import { gql, useQuery } from "@apollo/client";
+import apolloClient from "../../../lib/apolloClient";
 
 const Note = gql`
   query Personal_notes($studentId: ID!) {
@@ -74,6 +75,7 @@ function Sidenav3() {
     data: s_data,
     error: s_error,
     loading: s_loading,
+    refetch,
   } = useQuery(SchoolNotes, {
     variables: {
       authorId: classcoursedata.teacherId,
@@ -82,12 +84,18 @@ function Sidenav3() {
       noteType: notetype,
       available: true,
     },
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first",
   });
   if (notetype === "school") {
     data = s_data;
     error = s_error;
     loading = s_loading;
   }
+
+  apolloClient.refetchQueries({
+    include: [SchoolNotes],
+  });
 
   useEffect(() => {
     if (notetype === "school") {
@@ -223,9 +231,17 @@ function Sidenav3() {
         </h3>
       )}
       {notetype == "school" && (
-        <h3 className="text-xs font-semibold mt-5 ml-2 text-accent_color">
-          TOPICS
-        </h3>
+        <div className="flex mt-5 items-center mx-2 justify-between">
+          <h3 className="text-xs font-semibold text-accent_color">TOPICS</h3>
+          <div
+            onClick={() => refetch()}
+            // className="rounded-full  hover:h-7 flex cursor-pointer hover:shadow-md items-center justify-center hover:w-7"
+          >
+            <span className="material-icons rounded-full p-2 cursor-pointer hover:bg-accent_bkg_color text-[17px] font-semibold text-accent_color">
+              refresh
+            </span>
+          </div>
+        </div>
       )}
       {notetype === "school" &&
         classcoursedata.classId !== "" &&

@@ -31,6 +31,16 @@ function Note_creator() {
     setCreate,
   } = useContext(StudentContext);
 
+  useEffect(() => {
+    setNotetitle("Untitled");
+  }, []);
+
+  useEffect(() => {
+    if (notetitle.trim().length === 0) {
+      setNotetitle("Untitled");
+    }
+  }, [notetitle]);
+
   const [addTeacherNote, { data, loading, error }] = useMutation(
     AddTeacherNote,
     {

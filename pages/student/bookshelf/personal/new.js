@@ -11,7 +11,7 @@ function New() {
   }, []);
 
   return (
-    <div>
+    <div className="">
       {createtype === "untitled" && <Note_creator />}
       {createtype === "editor" && <Editor />}
     </div>

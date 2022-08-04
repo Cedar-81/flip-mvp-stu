@@ -21,6 +21,14 @@ a {
   box-sizing: border-box;
 }
 
+.side_con:hover > .icon {
+  color: #fff !important;
+}
+
+.icon {
+  color: #f21d1d;
+}
+
 /* text_editor */
 
 .container .ql-editor {

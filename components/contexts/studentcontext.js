@@ -23,6 +23,8 @@ function Studentcontextprovider({ children }) {
     courseId: "",
     classId: "",
     action: "",
+    className: "",
+    courseName: "",
     working: false,
     workingText: "",
   });

@@ -57,10 +57,14 @@ function Class_course() {
         <div
           key={index}
           onClick={() => {
-            setClasscoursedata({
-              courseId: "",
-              teacherId: val.teacherId,
-              classId: val.classId,
+            setClasscoursedata((prev) => {
+              return {
+                ...prev,
+                courseId: "",
+                teacherId: val.teacherId,
+                classId: val.classId,
+                className: val.class.class,
+              };
             });
             setAction("Course");
           }}
@@ -93,7 +97,11 @@ function Class_course() {
       <div
         key={index}
         onClick={() => {
-          setClasscoursedata({ ...classcoursedata, courseId: val.id });
+          setClasscoursedata({
+            ...classcoursedata,
+            courseId: val.id,
+            courseName: val.course,
+          });
           toggle_class_course(false);
         }}
         className="item cursor-pointer flex bg-accent_bkg_color w-[95%] mb-4 px-4 h-[3rem] items-center mx-auto rounded-xl"

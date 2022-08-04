@@ -104,7 +104,7 @@ function Displaynote() {
     <>
       {!notedata.updateNote && (
         <>
-          <div className="note_container mt-[6%] m-2 w-[8.5in] mx-auto bg-accent_bkg_color shadow-xl rounded-xl p-4 min-h-full">
+          <div className="note_container m-2 w-[8.5in] mx-auto bg-accent_bkg_color shadow-xl rounded-xl p-4 min-h-full">
             <p className="date text-sm text-accent_color font-medium">
               {moment(new Date(+val?.updatedAt)).format("DD/MM/YYYY")}
             </p>

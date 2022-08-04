@@ -14,11 +14,10 @@ function Sidenav() {
   } = useContext(StudentContext);
 
   const show_shelf = () => {
+    setTopbaraction((prev) => "Notes");
     if (router.query.id === undefined) {
       router.push("/student/bookshelf");
     }
-
-    setTopbaraction("Notes");
     setShelf2(true);
   };
 
@@ -75,7 +74,7 @@ function Sidenav() {
           }}
           className="icon_con flex mx-1 px-4 rounded-md items-center text-center py-2 hover:text-dark_color text-dark_color_2 cursor-pointer mt-2 hover:bg-accent_bkg_hover"
         >
-          <span className="material-icons text-[30px] ">manage_accounts</span>
+          <span class="material-symbols-outlined text-[30px]">settings</span>
           <p className="text-base font-medium ml-4">Settings</p>
         </div>
       </div>

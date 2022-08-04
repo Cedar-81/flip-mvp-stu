@@ -232,7 +232,7 @@ function Personaldets() {
         className={`input ${styles.input}`}
         placeholder="Phone no"
       />
-      <input
+      {/* <input
         onChange={get_student_info}
         type={"password"}
         name="old_password"
@@ -256,7 +256,7 @@ function Personaldets() {
         name="confirm_password"
         className={`input ${styles.input}`}
         placeholder="Confirm New Password"
-      />
+      /> */}
       {saver && (
         <button
           onClick={update}

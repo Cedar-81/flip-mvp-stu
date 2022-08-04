@@ -51,7 +51,11 @@ function Displaynote() {
   const router = useRouter();
 
   useEffect(() => {
-    if (classcoursedata.classId === "" || classcoursedata.courseId === "") {
+    if (
+      notetype === "" ||
+      (notetype === "school" &&
+        (classcoursedata.classId === "" || classcoursedata.courseId === ""))
+    ) {
       router.push("/student/bookshelf");
     }
   }, []);

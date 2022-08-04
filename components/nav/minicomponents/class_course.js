@@ -38,6 +38,8 @@ function Class_course() {
 
   const { data, error, loading } = useQuery(StudentTeacherCourse, {
     variables: { studentId: studentid },
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first",
   });
 
   let teachers;
@@ -68,7 +70,7 @@ function Class_course() {
             });
             setAction("Course");
           }}
-          className="item cursor-pointer flex bg-accent_bkg_color w-[95%] mb-4 px-4 h-[3rem] items-center mx-auto rounded-xl"
+          className="item cursor-pointer flex bg-[#E3E7ED] hover:bg-accent_bkg_hover w-[95%] mb-4 px-4 h-[3rem] items-center mx-auto rounded-xl"
         >
           <p className="item_text md:text-sm ml-4 text-xl font-semibold">
             {val.class.class}
@@ -104,7 +106,7 @@ function Class_course() {
           });
           toggle_class_course(false);
         }}
-        className="item cursor-pointer flex bg-accent_bkg_color w-[95%] mb-4 px-4 h-[3rem] items-center mx-auto rounded-xl"
+        className="item cursor-pointer flex bg-[#E3E7ED] hover:bg-accent_bkg_hover w-[95%] mb-4 px-4 h-[3rem] items-center mx-auto rounded-xl"
       >
         <p className="item_text md:text-sm ml-4 text-xl font-semibold">
           {val.course}
@@ -114,7 +116,7 @@ function Class_course() {
   });
 
   return (
-    <div className="nav_displays z-50 fixed overflow-y-auto md:top-[9%] bg-main_color md:right-[6rem] md:pt-0 md:mt-4 md:h-max md:w-max md:rounded-md md:shadow-md top-0 h-[90%] w-[100vw]">
+    <div className="nav_displays z-50 fixed overflow-y-auto md:top-[9%] bg-sidenav_bkg_color md:right-[6rem] md:pt-0 md:mt-4 md:h-max md:w-max md:rounded-md md:shadow-lg top-0 h-[90%] w-[100vw]">
       {classcoursedata.working && (
         <div className="w-full absolute z-10 top-1 flex items-center justify-center ">
           <p className="py-2 text-xs px-4 text-center mx-auto shadow-lg bg-accent_color text-main_color">
@@ -136,7 +138,7 @@ function Class_course() {
 
         <div className="class_course_con w-full mt-7 h-full ">
           {action == "Class" && (
-            <div className="display bg-main_color h-full pt-8 md:pt-0">
+            <div className="display bg-sidenav_bkg_color h-full pt-8 md:pt-0">
               <div
                 onClick={() =>
                   setClasscoursedata({
@@ -156,10 +158,10 @@ function Class_course() {
           )}
 
           {action == "Course" && (
-            <div className="display bg-main_color h-full pt-8 md:pt-0">
+            <div className="display bg-sidenav_bkg_color h-full pt-8 md:pt-0">
               <div
                 onClick={() => setAction("Class")}
-                className="back_to_class sticky top-2 bg-main_color flex mb-4 md:ml-2 cursor-pointer"
+                className="back_to_class sticky top-2 bg-sidenav_bkg_color flex mb-4 md:ml-2 cursor-pointer"
               >
                 <span className="material-symbols-outlined text-sm text-accent_color">
                   arrow_back_ios_new

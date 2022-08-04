@@ -1,26 +1,19 @@
 import React, { useContext, useEffect } from "react";
 import { StudentContext } from "../../../components/contexts/studentcontext";
-import Welcome from "../../../public/assets/SVG/welcome.svg";
+import Read from "../../../public/assets/SVG/bookshelf.svg";
 
-function Index({ props }) {
-  console.log(props);
+function Index() {
   const { setTopbaraction } = useContext(StudentContext);
   useEffect(() => {
-    setTopbaraction("Welcome");
+    setTopbaraction((prev) => "Notes");
   }, []);
 
   return (
-    <div className="pt-[7%] h-[100vh] flex-row items-center justify-center w-full ">
-      <Welcome className="h-[67%] mt-8 mx-auto opacity-75" />
+    <div className="h-full overflow-y-hidden flex-row items-center justify-center w-full ">
+      <Read className="h-[67%] mt-8 mx-auto opacity-75" />
       <div className="w-full text-center mt-4">
-        <h3 className=" text-3xl font-[Fira-sans]">
-          Welcome Aboard, lets get started.
-          <span className="block text-lg font-[Inter] ">
-            First, select a class from the topbar
-          </span>
-          <span className="block text-lg font-[Inter] ">
-            Then, select a note to read.
-          </span>
+        <h3 className=" text-3xl text-dark_color_2 font-[Fira-sans]">
+          Ready to read? lets get started.
         </h3>
       </div>
     </div>

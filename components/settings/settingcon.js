@@ -6,7 +6,7 @@ function Settingcon() {
   const { setTopbaraction, topbaraction } = useContext(StudentContext);
 
   return (
-    <div className=" pt-[9%] w-[80%] min-h-full mx-auto">
+    <div className=" pt-4 w-[80%] min-h-full mx-auto">
       {topbaraction == "Settings" && (
         <>
           <div

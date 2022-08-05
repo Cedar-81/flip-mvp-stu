@@ -44,12 +44,11 @@ function Layout({ children }) {
   });
   console.log(data);
 
+  refetch();
   if (data && !router.pathname.includes("/auth")) {
     if (data.auth === "authorized") {
       setIsAuth(true);
     } else if (data.auth === "unauthorized") {
-      refetch();
-
       setIsAuth(false);
       router.push("/auth/signin");
     }

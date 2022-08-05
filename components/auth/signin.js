@@ -94,7 +94,7 @@ function Signin() {
           <Image src="/assets/logolight.png" width={67} height={28} />
         </div>
         <h1 className="ctatxt relative z-10 text-3xl w-[80%] mt-[20%] ">
-          Welcome back, let's keep going.
+          {`Welcome back, let's keep going.`}
         </h1>
         <p className="text-md relative z-10 w-[80%] text-[#f7f7f7] mt-[1rem]">
           {`Being the best is something you can achieve all you need is a winning
@@ -104,7 +104,7 @@ function Signin() {
       <div className="px-[5%] pt-[5%] w-full md:w-[70%]">
         <h2 className="text-2xl font-semibold">Sign In</h2>
         <p className="text-sm mt-2 font-medium">
-          Don't have an account already?{" "}
+          {`Don't have an account already?{" "}`}
           <span
             onClick={() => router.push("/auth/signup")}
             className="text-accent_color cursor-pointer font-semibold"

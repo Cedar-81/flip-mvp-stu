@@ -79,7 +79,7 @@ function Signin() {
     setPassword("");
     setEmail("");
     setIsAuth(true);
-    router.push("/student");
+    router.replace(router.asPath);
 
     setTimeout(() => {
       setErrorMsg("");

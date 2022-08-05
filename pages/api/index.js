@@ -7,7 +7,10 @@ import prisma from "../../lib/prismaClient";
 import isAuth from "../../graphql/isAuth";
 
 const cors = Cors({
-  origin: "https://studio.apollographql.com",
+  origin:
+    process.env.NODE_ENV == "development"
+      ? "https://studio.apollographql.com"
+      : "https://flip-mvp-stu.vercel.app/",
   credentials: true,
 });
 

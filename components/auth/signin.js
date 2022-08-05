@@ -18,10 +18,11 @@ function Signin() {
 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [unverified, setUnverified] = useState(false);
 
   const router = useRouter();
 
-  const { setAuthType } = useContext(AuthContext);
+  const { setIsAuth } = useContext(AuthContext);
 
   const [login_student, { data, loading, error }] = useMutation(loginStudent);
   const [btntxt, setBtntxt] = useState("Sign In");
@@ -39,6 +40,7 @@ function Signin() {
     } else {
       setErrorMsg(" ");
       signin();
+
       return "passed";
     }
   };
@@ -61,13 +63,22 @@ function Signin() {
       );
     }
 
+    if (login.data.signIn === "Unverified Email") {
+      return (
+        setUnverified(true),
+        setErrorMsg("Please verify email and try again"),
+        setBtntxt("Sign In")
+      );
+    }
+
+    setUnverified(false);
     setErrorMsg("Verified");
     setBtntxt("Verified");
 
     setPassword("");
     setEmail("");
-
-    router.push("/auth/signin");
+    setIsAuth(true);
+    router.push("/student");
 
     setTimeout(() => {
       setErrorMsg("");
@@ -76,7 +87,7 @@ function Signin() {
   };
 
   return (
-    <div className="w-full h-max min-h-[100vh] md:h-[100vh] flex bg-main_color p-4">
+    <div className="w-full fixed overflow-y-auto h-[100vh] min-h-[100vh] md:h-[100vh] flex bg-main_color p-4">
       <div className="hidden md:flex flex-col w-[30%] relative px-7 h-full bg-cover blur-xs bg-no-repeat bg-center bg-[url(/assets/signin.png)] rounded-xl text-main_color bg-accent_color">
         <div className="overlay absolute rounded-xl opacity-80 mix-blend-multiply bg-blend-multiply top-0 left-0 w-full h-full bg-accent_color"></div>
         <div className="mt-[20%] relative z-10 px-2">
@@ -86,8 +97,8 @@ function Signin() {
           Welcome back, let's keep going.
         </h1>
         <p className="text-md relative z-10 w-[80%] text-[#f7f7f7] mt-[1rem]">
-          Being the best is something you can achieve all you need is a winning
-          mindset and you're good to go.
+          {`Being the best is something you can achieve all you need is a winning
+          mindset and you're good to go.`}
         </p>
       </div>
       <div className="px-[5%] pt-[5%] w-full md:w-[70%]">
@@ -102,17 +113,28 @@ function Signin() {
           </span>
         </p>
         <p className="errormsg text-accent_color font-extrabold">{err_msg}</p>
+        {unverified && (
+          <p className="font-extrabold">
+            Click here to verify email{" "}
+            <span
+              onClick={() => router.push("/auth/verification")}
+              className="text-accent_color cursor-pointer"
+            >
+              Verify Email
+            </span>
+          </p>
+        )}
         <div className="mt-10">
           <input
             className={`input ${styles.input}`}
-            type="email"
+            type={"email"}
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             placeholder="Email"
           />
           <input
             className={`input mt-8 ${styles.input}`}
-            type="password"
+            type={"password"}
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             placeholder="Password"

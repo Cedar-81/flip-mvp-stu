@@ -14,6 +14,7 @@ export const typeDefs = gql`
       available: Boolean!
     ): [Teacher_Note]!
     note(id: ID!): Teacher_Note
+    auth: String
   }
 
   type Mutation {
@@ -49,6 +50,7 @@ export const typeDefs = gql`
     country: String
     postalCode: String
     email: String
+    verifiedEmail: Boolean
     image: String
     dateOfBirth: String
     phoneNo: String
@@ -151,7 +153,6 @@ export const typeDefs = gql`
   }
 
   input verifyEmailInput {
-    email: String!
     code: String!
   }
 

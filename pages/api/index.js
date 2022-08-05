@@ -4,6 +4,7 @@ import { resolvers } from "../../graphql/resolvers";
 import Cors from "micro-cors";
 import { createContext } from "../../graphql/context";
 import prisma from "../../lib/prismaClient";
+import isAuth from "../../graphql/isAuth";
 
 const cors = Cors({
   origin: "https://studio.apollographql.com",
@@ -14,7 +15,11 @@ const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req, res }) => {
-    return { req, res, prisma };
+    return {
+      req,
+      res,
+      prisma,
+    };
   },
   csrfPrevention: true,
   cache: "bounded",

@@ -17,13 +17,15 @@ function Signup() {
   };
 
   const router = useRouter();
-  const { setStudentinfo, studentinfo } = useContext(AuthContext);
+  const { setStudentinfo, studentinfo, setIsAuth } = useContext(AuthContext);
   const [errorMsg, setErrorMsg] = useState("");
   const [btntxt, setBtntxt] = useState("Sign Up");
 
   const get_student_info = (e) => {
     setStudentinfo({ ...studentinfo, [e.target.name]: e.target.value });
   };
+
+  setIsAuth(false);
 
   const [createstudentprofile, { data, loading, error }] = useMutation(
     createStudent,
@@ -140,7 +142,7 @@ function Signup() {
   };
 
   return (
-    <div className="w-full h-max min-h-[100vh] md:h-[100vh] flex bg-main_color p-4">
+    <div className="w-full fixed overflow-y-auto h-[100vh] min-h-[100vh] md:h-[100vh] flex bg-main_color p-4">
       <div className="hidden md:flex flex-col w-[30%] relative px-7 h-full bg-cover blur-xs bg-no-repeat bg-center bg-[url(/assets/signup.png)] rounded-xl text-main_color bg-accent_color">
         <div className="overlay absolute rounded-xl opacity-80 mix-blend-multiply bg-blend-multiply top-0 left-0 w-full h-full bg-accent_color"></div>
         <div className="mt-[20%] relative z-10 px-2">
@@ -150,8 +152,8 @@ function Signup() {
           Start your journey with us.
         </h1>
         <p className="text-md relative z-10 w-[80%] text-[#f7f7f7] mt-[1rem]">
-          Learning is and should always be fun, so buckle up cause you're in for
-          a ride
+          {`Learning is and should always be fun, so buckle up cause you're in for
+          a ride`}
         </p>
       </div>
       <div className="px-[5%] pt-[3%] w-full md:w-[70%]">

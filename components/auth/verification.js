@@ -11,19 +11,13 @@ const Verify = gql`
 function Verification() {
   const router = useRouter();
   const [verify, { data, loading, error }] = useMutation(Verify);
-  const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [btntxt, setBtntxt] = useState("Verify");
   const [err_msg, setErrorMsg] = useState("");
 
   const checker = () => {
-    if (email.trim().length == 0 || code.trim().length == 0) {
-      setErrorMsg("*All fields must be filled");
-      return "failed";
-    } else if (
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) === false
-    ) {
-      setErrorMsg("*Please enter a valid email");
+    if (code.trim().length == 0) {
+      setErrorMsg("Code field must be filled");
       return "failed";
     } else {
       setErrorMsg(" ");
@@ -37,7 +31,6 @@ function Verification() {
 
   const authorize = async () => {
     const inputVal = {
-      email,
       code,
     };
     setErrorMsg("...Verifying. Please wait.");
@@ -56,7 +49,6 @@ function Verification() {
     setBtntxt("Verified");
 
     setCode("");
-    setEmail("");
 
     router.push("/auth/signin");
 
@@ -79,13 +71,6 @@ function Verification() {
         <p className="text-xs text-center mt-8 mb-1 font-semibold text-accent_color">
           {err_msg}
         </p>
-        <input
-          type={"email"}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full h-10 px-2 mb-2 focus:shadow-lg focus:bg-main_color rounded-md outline-none"
-          placeholder="Enter email"
-        />
         <input
           type={"text"}
           value={code}

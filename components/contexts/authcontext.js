@@ -4,6 +4,7 @@ const AuthContext = createContext();
 
 function Authcontextprovider({ children }) {
   const [isAuth, setIsAuth] = useState(false);
+  const [auth, setAuth] = useState(false);
   const [authType, setAuthType] = useState("signup");
   const [studentinfo, setStudentinfo] = useState({
     firstname: "",
@@ -27,6 +28,8 @@ function Authcontextprovider({ children }) {
     setIsAuth,
     authType,
     setAuthType,
+    setAuth,
+    auth,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

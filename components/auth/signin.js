@@ -3,7 +3,6 @@ import Image from "next/image";
 import { AuthContext } from "../contexts/authcontext";
 import { useRouter } from "next/router";
 import { gql, useMutation } from "@apollo/client";
-import isAuth from "../../graphql/isAuth";
 
 const loginStudent = gql`
   mutation SignIn($input: signInInput) {
@@ -23,13 +22,11 @@ function Signin() {
 
   const router = useRouter();
 
-  const { setIsAuth, isAuth } = useContext(AuthContext);
+  const { setIsAuth } = useContext(AuthContext);
 
   const [login_student, { data, loading, error }] = useMutation(loginStudent);
   const [btntxt, setBtntxt] = useState("Sign In");
   const [err_msg, setErrorMsg] = useState("");
-
-  if (isAuth === true) setIsAuth(false);
 
   const checker = () => {
     if (email.trim().length == 0 || password.trim().length == 0) {
@@ -90,76 +87,70 @@ function Signin() {
   };
 
   return (
-    <>
-      {!isAuth && (
-        <div className="w-full fixed overflow-y-auto h-[100vh] min-h-[100vh] md:h-[100vh] flex bg-main_color p-4">
-          <div className="hidden md:flex flex-col w-[30%] relative px-7 h-full bg-cover blur-xs bg-no-repeat bg-center bg-[url(/assets/signin.png)] rounded-xl text-main_color bg-accent_color">
-            <div className="overlay absolute rounded-xl opacity-80 mix-blend-multiply bg-blend-multiply top-0 left-0 w-full h-full bg-accent_color"></div>
-            <div className="mt-[20%] relative z-10 px-2">
-              <Image src="/assets/logolight.png" width={67} height={28} />
-            </div>
-            <h1 className="ctatxt relative z-10 text-3xl w-[80%] mt-[20%] ">
-              {`Welcome back, let's keep going.`}
-            </h1>
-            <p className="text-md relative z-10 w-[80%] text-[#f7f7f7] mt-[1rem]">
-              {`Being the best is something you can achieve all you need is a winning
-          mindset and you're good to go.`}
-            </p>
-          </div>
-          <div className="px-[5%] pt-[5%] w-full md:w-[70%]">
-            <h2 className="text-2xl font-semibold">Sign In</h2>
-            <p className="text-sm mt-2 font-medium">
-              {`Don't have an account already? `}
-              <span
-                onClick={() => router.push("/auth/signup")}
-                className="text-accent_color cursor-pointer font-semibold"
-              >
-                Sign up
-              </span>
-            </p>
-            <p className="errormsg text-accent_color font-extrabold">
-              {err_msg}
-            </p>
-            {unverified && (
-              <p className="font-extrabold">
-                Click here to verify email{" "}
-                <span
-                  onClick={() => router.push("/auth/verification")}
-                  className="text-accent_color cursor-pointer"
-                >
-                  Verify Email
-                </span>
-              </p>
-            )}
-            <div className="mt-10">
-              <input
-                className={`input ${styles.input}`}
-                type={"email"}
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                placeholder="Email"
-              />
-              <input
-                className={`input mt-8 ${styles.input}`}
-                type={"password"}
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
-                placeholder="Password"
-              />
-            </div>
-
-            <div className="w-full flex justify-start">
-              <button
-                onClick={() => checker()}
-                className="bg-accent_color h-[2.5rem] w-[7rem] cursor-pointer hover:shadow-md text-main_color px-4 relative mt-5 mb-5 py-1 rounded-md text-base"
-              >
-                {btntxt}
-              </button>
-            </div>
-          </div>
+    <div className="w-full fixed overflow-y-auto h-[100vh] min-h-[100vh] md:h-[100vh] flex bg-main_color p-4">
+      <div className="hidden md:flex flex-col w-[30%] relative px-7 h-full bg-cover blur-xs bg-no-repeat bg-center bg-[url(/assets/signin.png)] rounded-xl text-main_color bg-accent_color">
+        <div className="overlay absolute rounded-xl opacity-80 mix-blend-multiply bg-blend-multiply top-0 left-0 w-full h-full bg-accent_color"></div>
+        <div className="mt-[20%] relative z-10 px-2">
+          <Image src="/assets/logolight.png" width={67} height={28} />
         </div>
-      )}
-    </>
+        <h1 className="ctatxt relative z-10 text-3xl w-[80%] mt-[20%] ">
+          {`Welcome back, let's keep going.`}
+        </h1>
+        <p className="text-md relative z-10 w-[80%] text-[#f7f7f7] mt-[1rem]">
+          {`Being the best is something you can achieve all you need is a winning
+          mindset and you're good to go.`}
+        </p>
+      </div>
+      <div className="px-[5%] pt-[5%] w-full md:w-[70%]">
+        <h2 className="text-2xl font-semibold">Sign In</h2>
+        <p className="text-sm mt-2 font-medium">
+          {`Don't have an account already?{" "}`}
+          <span
+            onClick={() => router.push("/auth/signup")}
+            className="text-accent_color cursor-pointer font-semibold"
+          >
+            Sign up
+          </span>
+        </p>
+        <p className="errormsg text-accent_color font-extrabold">{err_msg}</p>
+        {unverified && (
+          <p className="font-extrabold">
+            Click here to verify email{" "}
+            <span
+              onClick={() => router.push("/auth/verification")}
+              className="text-accent_color cursor-pointer"
+            >
+              Verify Email
+            </span>
+          </p>
+        )}
+        <div className="mt-10">
+          <input
+            className={`input ${styles.input}`}
+            type={"email"}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            placeholder="Email"
+          />
+          <input
+            className={`input mt-8 ${styles.input}`}
+            type={"password"}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            placeholder="Password"
+          />
+        </div>
+
+        <div className="w-full flex justify-start">
+          <button
+            onClick={() => checker()}
+            className="bg-accent_color h-[2.5rem] w-[7rem] cursor-pointer hover:shadow-md text-main_color px-4 relative mt-5 mb-5 py-1 rounded-md text-base"
+          >
+            {btntxt}
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 

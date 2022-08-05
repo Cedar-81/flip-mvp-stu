@@ -38,7 +38,10 @@ function Layout({ children }) {
     useContext(AuthContext);
   console.log(isAuth);
 
-  const { data, error, loading } = useQuery(Auth);
+  const { data, error, loading } = useQuery(Auth, {
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first",
+  });
   console.log(data);
 
   if (data && !router.pathname.includes("/auth")) {

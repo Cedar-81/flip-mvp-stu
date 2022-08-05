@@ -23,13 +23,13 @@ function Signin() {
 
   const router = useRouter();
 
-  const { setIsAuth } = useContext(AuthContext);
+  const { setIsAuth, isAuth } = useContext(AuthContext);
 
   const [login_student, { data, loading, error }] = useMutation(loginStudent);
   const [btntxt, setBtntxt] = useState("Sign In");
   const [err_msg, setErrorMsg] = useState("");
 
-  if (isAuth === false) setIsAuth(false);
+  if (isAuth === true) setIsAuth(false);
 
   const checker = () => {
     if (email.trim().length == 0 || password.trim().length == 0) {

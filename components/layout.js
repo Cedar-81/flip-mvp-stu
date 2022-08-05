@@ -45,18 +45,19 @@ function Layout({ children }) {
   console.log(data);
 
   refetch();
-  if (data && !router.pathname.includes("/auth")) {
-    if (data.auth === "authorized") {
-      setIsAuth(true);
-    } else if (data.auth === "unauthorized") {
-      setIsAuth(false);
-      router.push("/auth/signin");
-    }
-  } else if (!router.pathname.includes("/auth")) {
-    setIsAuth(false);
-  }
+  console.log("refetch");
+  // if (data && !router.pathname.includes("/auth")) {
+  //   if (data.auth === "authorized") {
+  //     setIsAuth(true);
+  //   } else if (data.auth === "unauthorized") {
+  //     setIsAuth(false);
+  //     router.push("/auth/signin");
+  //   }
+  // } else if (!router.pathname.includes("/auth")) {
+  //   setIsAuth(false);
+  // }
   useEffect(() => {
-    console.log("here");
+    console.log("in effect here");
     if (router.pathname == "/auth/signup") {
       router.push("/auth/signup");
       return;
@@ -78,7 +79,7 @@ function Layout({ children }) {
         return;
       }
     }
-  }, [data]);
+  }, []);
 
   return (
     <div className="flex w-[100%] max-w-[100%] h-[100vh] ">

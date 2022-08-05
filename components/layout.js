@@ -14,6 +14,7 @@ import Note_deletor from "./bookshelf/minicomponents/note_deletor";
 import { AuthContext } from "./contexts/authcontext";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import apolloClient from "../../../lib/apolloClient";
 
 const Auth = gql`
   query Query {
@@ -38,14 +39,20 @@ function Layout({ children }) {
     useContext(AuthContext);
   console.log(isAuth);
 
-  const { data, error, loading } = useQuery(Auth, {
+  const { data, error, loading, refetch } = useQuery(Auth, {
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-first",
   });
   console.log(data);
 
+  useEffect(() => {
+    if (data.auth === "unauthorized") {
+      refetch();
+      apolloClient.refetchQueries({ include: [Auth] });
+    }
+  }, []);
+
   if (data && !router.pathname.includes("/auth")) {
-    console.log(data.auth, router.pathname);
     if (data.auth === "authorized") {
       setIsAuth(true);
     } else if (data.auth === "unauthorized") {

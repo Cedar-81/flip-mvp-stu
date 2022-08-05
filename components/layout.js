@@ -79,7 +79,7 @@ function Layout({ children }) {
         return;
       }
     }
-  }, []);
+  }, [data]);
 
   return (
     <div className="flex w-[100%] max-w-[100%] h-[100vh] ">

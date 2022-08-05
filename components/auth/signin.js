@@ -78,8 +78,7 @@ function Signin() {
 
     setPassword("");
     setEmail("");
-    setIsAuth(true);
-    return router.reload();
+    return setIsAuth(true), router.push("/student/bookshelf");
 
     setTimeout(() => {
       setErrorMsg("");

@@ -14,8 +14,8 @@ const sendEmail = async (val) => {
       service: "gmail",
       host: "smtp.gmail.com",
       auth: {
-        user: `${process.env.APP_EMAIL}`, // generated ethereal user
-        pass: `${process.env.APP_PASSWORD}`, // generated ethereal password
+        user: `${process.env.NEXT_PUBLIC_APP_EMAIL}`, // generated ethereal user
+        pass: `${process.env.NEXT_PUBLIC_APP_PASSWORD}`, // generated ethereal password
       },
       tls: {
         rejectUnauthorized: false,
@@ -394,13 +394,17 @@ export const resolvers = {
             });
           };
 
-          cookies.set("auth", access(process.env.JWT_COOKIE_TOKEN, "7d"), {
-            httpOnly: true,
-            path: "/",
-            maxAge: 3600 * 24 * 7,
-            sameSite: "strict",
-            secure: process.env.NODE_ENV === "production" ? true : false,
-          });
+          cookies.set(
+            "auth",
+            access(process.env.NEXT_PUBLIC_JWT_COOKIE_TOKEN, "7d"),
+            {
+              httpOnly: true,
+              path: "/",
+              maxAge: 3600 * 24 * 7,
+              sameSite: "strict",
+              secure: process.env.NODE_ENV === "production" ? true : false,
+            }
+          );
 
           console.log(isAuth(context.req));
           return "Verified";

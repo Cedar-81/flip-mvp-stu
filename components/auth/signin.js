@@ -79,7 +79,7 @@ function Signin() {
     setPassword("");
     setEmail("");
     setIsAuth(true);
-    router.replace(router.asPath);
+    return router.reload();
 
     setTimeout(() => {
       setErrorMsg("");

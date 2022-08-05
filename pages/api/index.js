@@ -10,7 +10,7 @@ const cors = Cors({
   origin:
     process.env.NODE_ENV == "development"
       ? "https://studio.apollographql.com"
-      : "https://flip-mvp-stu.vercel.app",
+      : "https://flip-mvp-stu.vercel.app/",
   credentials: true,
 });
 

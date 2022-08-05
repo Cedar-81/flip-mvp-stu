@@ -49,7 +49,7 @@ function Layout({ children }) {
       setIsAuth(true);
     } else if (data.auth === "unauthorized") {
       refetch();
-      if (data.auth === "authorized") return;
+      if (data.auth === "authorized") return "authorized";
       setIsAuth(false);
       router.push("/auth/signin");
     }

@@ -14,7 +14,7 @@ import Note_deletor from "./bookshelf/minicomponents/note_deletor";
 import { AuthContext } from "./contexts/authcontext";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import apolloClient from "../../../lib/apolloClient";
+import apolloClient from "../lib/apolloClient";
 
 const Auth = gql`
   query Query {

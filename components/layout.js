@@ -36,28 +36,15 @@ function Layout({ children }) {
   } = useContext(StudentContext);
   const { auth, setIsAuth, isAuth, authType, setAuth } =
     useContext(AuthContext);
-  console.log(isAuth);
 
   const { data, error, loading, refetch } = useQuery(Auth, {
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-first",
   });
-  console.log(data);
 
   refetch();
-  console.log("refetch");
-  // if (data && !router.pathname.includes("/auth")) {
-  //   if (data.auth === "authorized") {
-  //     setIsAuth(true);
-  //   } else if (data.auth === "unauthorized") {
-  //     setIsAuth(false);
-  //     router.push("/auth/signin");
-  //   }
-  // } else if (!router.pathname.includes("/auth")) {
-  //   setIsAuth(false);
-  // }
+
   useEffect(() => {
-    console.log("in effect here");
     if (router.pathname == "/auth/signup") {
       router.push("/auth/signup");
       return;
@@ -70,7 +57,6 @@ function Layout({ children }) {
       router.push("/auth/signin");
       return;
     } else if (router.pathname.includes("/student") && data) {
-      console.log(data.auth, router.pathname);
       if (data.auth === "authorized") {
         setIsAuth(true);
         return;

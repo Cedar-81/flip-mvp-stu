@@ -79,11 +79,6 @@ function Signin() {
     setPassword("");
     setEmail("");
     return setIsAuth(true), router.push("/student/bookshelf");
-
-    setTimeout(() => {
-      setErrorMsg("");
-      setBtntxt("Sign In");
-    }, 5000);
   };
 
   return (
@@ -104,7 +99,7 @@ function Signin() {
       <div className="px-[5%] pt-[5%] w-full md:w-[70%]">
         <h2 className="text-2xl font-semibold">Sign In</h2>
         <p className="text-sm mt-2 font-medium">
-          {`Don't have an account already?{" "}`}
+          {`Don't have an account already? `}
           <span
             onClick={() => router.push("/auth/signup")}
             className="text-accent_color cursor-pointer font-semibold"

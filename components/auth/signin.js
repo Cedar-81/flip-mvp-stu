@@ -46,6 +46,7 @@ function Signin() {
   };
 
   const signin = async () => {
+    console.log(process.env.JWT_COOKIE_TOKEN);
     const inputVal = {
       email,
       password,

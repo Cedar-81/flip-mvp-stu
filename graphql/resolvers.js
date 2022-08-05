@@ -406,7 +406,7 @@ export const resolvers = {
           return "Verified";
         }
       } catch (e) {
-        console.log(e);
+        return e;
         return "Failed";
       }
     },

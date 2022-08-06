@@ -11,6 +11,7 @@ function Sidenav() {
     setTopbaraction,
     setClass_course,
     classcoursedata,
+    studentname,
   } = useContext(StudentContext);
 
   const show_shelf = () => {
@@ -32,8 +33,17 @@ function Sidenav() {
         }}
         className="details cursor-pointer mt-8 grid grid-cols-2 gap-0 bg-accent_bkg_hover px-2 rounded-lg mx-1 h-[5rem] "
       >
-        <div className="initials border-2 w-[3rem] my-auto flex justify-center items-center text-lg font-semibold text-main_color bg-accent_color rounded-md h-[3rem]">
-          JD
+        <div
+          onClick={() => {
+            setClass_course((prev) => !prev);
+            router.push("/student/settings");
+          }}
+          className="initials border-2 w-[3rem] my-auto flex justify-center items-center text-lg font-semibold text-main_color bg-accent_color rounded-md h-[3rem]"
+        >
+          {studentname.trim().length > 0
+            ? studentname.split(" ")[0][0].toUpperCase() +
+              studentname.split(" ")[1][0].toUpperCase()
+            : "..."}
         </div>
         <div className="det_txt ml-[-1.7rem] my-auto">
           <p className="text-xs text-[#F7F7F7]">
@@ -53,7 +63,7 @@ function Sidenav() {
               classcoursedata.courseName.length > 7
                 ? classcoursedata.courseName.substring(0, 7) + "..."
                 : classcoursedata.courseName}
-              {classcoursedata.className === "" && "Select C..."}
+              {classcoursedata.courseName.trim().length === 0 && "Select C..."}
             </span>
           </p>
         </div>

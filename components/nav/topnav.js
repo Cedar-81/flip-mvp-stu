@@ -8,6 +8,7 @@ const StudentInfo = gql`
     student(studentId: $studentId) {
       id
       firstName
+      lastName
       image
     }
   }
@@ -25,6 +26,7 @@ function Topnav() {
     studentid,
     studentprofile,
     setTopbaraction,
+    setStudentname,
   } = useContext(StudentContext);
 
   const router = useRouter();
@@ -38,6 +40,7 @@ function Topnav() {
     val = "loading...";
   }
   if (data && data.student) {
+    setStudentname(data.student.firsName + " " + data.student.lastName);
     val = data.student.firstName;
   }
 

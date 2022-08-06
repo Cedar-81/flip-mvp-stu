@@ -1,6 +1,7 @@
 import { verify } from "jsonwebtoken";
 
 export default function isAuth(req) {
+  console.log(process.env.NEXT_PUBLIC_JWT_COOKIE_TOKEN);
   try {
     const payload = verify(
       req.cookies.auth,

@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
+import { data } from "autoprefixer";
 
 const StudentContext = createContext();
 
@@ -42,7 +43,8 @@ function Studentcontextprovider({ children }) {
   const [notetitle, setNotetitle] = useState("Untitled");
   const [editablecontent, setEditablecontent] = useState("");
   const [creatednoteid, setCreatednoteid] = useState("");
-  const [studentid, setStudentid] = useState("cl657q2fi0030d0ks9nuqo631");
+  const [studentid, setStudentid] = useState("");
+  const [studentname, setStudentname] = useState("");
   const [studentprofile, setStudentprofile] = useState({
     firstname: "",
     lastname: "",
@@ -76,6 +78,45 @@ function Studentcontextprovider({ children }) {
     setNotification(false);
     setClass_course(false);
   }
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let data = window.localStorage.getItem("FLIP_CLASSROOM_STATE_STUDENT");
+      if (data !== null) {
+        data = JSON.parse(data);
+        setClasscoursedata({
+          ...class_course,
+          classId: data.classId,
+          courseId: data.courseId,
+          action: data.action,
+          className: data.className,
+          courseName: data.courseName,
+        });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("here", classcoursedata.courseId);
+    let values = {
+      classId: "",
+      courseId: "",
+      action: "",
+      className: "",
+      courseName: "",
+    };
+    if (typeof window != "undefined") {
+      values.classId = classcoursedata.classId;
+      values.courseId = classcoursedata.courseId;
+      values.action = classcoursedata.action;
+      values.className = classcoursedata.className;
+      values.courseName = classcoursedata.courseName;
+      return window.localStorage.setItem(
+        "FLIP_CLASSROOM_STATE_STUDENT",
+        JSON.stringify(values)
+      );
+    }
+  }, [classcoursedata]);
 
   const value = {
     notification,
@@ -121,6 +162,8 @@ function Studentcontextprovider({ children }) {
     setNotedata,
     updatenotechecker,
     setUpdatenotechecker,
+    studentname,
+    setStudentname,
   };
 
   return (

@@ -22,7 +22,10 @@ function Signin() {
 
   const router = useRouter();
 
-  const { setIsAuth } = useContext(AuthContext);
+  const { setIsAuth, isAuth } = useContext(AuthContext);
+  if (isAuth) {
+    router.push("/student/bookshelf");
+  }
 
   const [login_student, { data, loading, error }] = useMutation(loginStudent);
   const [btntxt, setBtntxt] = useState("Sign In");

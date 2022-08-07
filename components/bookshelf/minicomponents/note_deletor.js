@@ -19,7 +19,8 @@ const DeleteNote = gql`
 `;
 
 function Note_deletor() {
-  const { studentid, notedata, setNotedata } = useContext(StudentContext);
+  const { studentid, notedata, setNotedata, setShelf2, setShelf3 } =
+    useContext(StudentContext);
 
   const router = useRouter();
 
@@ -54,6 +55,8 @@ function Note_deletor() {
     });
     router.push("/student/bookshelf");
   };
+  setShelf2(false);
+  setShelf3(false);
 
   return (
     <div className="w-full h-[100vh] fixed top-0 z-50 bg-dark_color">

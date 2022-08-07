@@ -82,10 +82,15 @@ function Layout({ children }) {
       <div className="w-[100vw] md:w-[95%] overflow-y-hidden">
         {isAuth && <Topnav />}
         <div className=" h-full pb-4">
-          {notification && <Notifications />}
-          {class_course && <Class_course />}
-          {classcoursedata.action === "new_class" && <Newclass />}
-          {notedata.deleteNote && <Note_deletor />}
+          {isAuth && (
+            <>
+              {notification && <Notifications />}
+              {class_course && <Class_course />}
+              {classcoursedata.action === "new_class" && <Newclass />}
+              {notedata.deleteNote && <Note_deletor />}
+            </>
+          )}
+
           <div className=" bg-accent_bkg_color relative h-full overflow-y-auto w-full md:static md:top-0">
             {children}
           </div>

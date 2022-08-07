@@ -29,6 +29,8 @@ function Note_creator() {
     notetype,
     setCreatednoteid,
     setCreate,
+    setShelf2,
+    setShelf3,
   } = useContext(StudentContext);
 
   useEffect(() => {
@@ -76,6 +78,9 @@ function Note_creator() {
     addTeacherNote({ variables: { input: inputVal } });
     console.log("data", data);
   };
+
+  setShelf2(false);
+  setShelf3(false);
 
   return (
     <div className="w-full h-[100vh] fixed top-0 z-[68] bg-dark_color ">

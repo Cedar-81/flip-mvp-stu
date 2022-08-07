@@ -34,6 +34,8 @@ function Class_course() {
     studentid,
     setClasscoursedata,
     classcoursedata,
+    setShelf2,
+    setShelf3,
   } = useContext(StudentContext);
 
   const { data, error, loading } = useQuery(StudentTeacherCourse, {
@@ -115,6 +117,9 @@ function Class_course() {
       </div>
     );
   });
+
+  setShelf2(false);
+  setShelf3(false);
 
   return (
     <div className="nav_displays z-50 fixed overflow-y-auto md:top-[9%] bg-sidenav_bkg_color md:right-[6rem] md:pt-0 md:mt-4 md:h-max md:w-max md:rounded-md md:shadow-lg top-0 h-[90%] w-[100vw]">

@@ -4,7 +4,7 @@ export default function isAuth(req) {
   console.log(process.env.NEXT_PUBLIC_JWT_COOKIE_TOKEN);
   try {
     const payload = verify(
-      req.cookies.auth,
+      req.cookies.flip_classroom_auth_students,
       `${process.env.NEXT_PUBLIC_JWT_COOKIE_TOKEN}`
     );
     console.log("🚀 ~ file: isAuth.js ~ line 5 ~ isAuth ~ payload", payload);

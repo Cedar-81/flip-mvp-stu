@@ -401,7 +401,7 @@ export const resolvers = {
           };
 
           cookies.set(
-            "auth",
+            "flip_classroom_auth_students",
             access(`${process.env.NEXT_PUBLIC_JWT_COOKIE_TOKEN}`, "7d"),
             {
               httpOnly: true,

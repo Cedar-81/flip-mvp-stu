@@ -40,7 +40,7 @@ function Topnav() {
     val = "loading...";
   }
   if (data && data.student) {
-    setStudentname(data.student.firsName + " " + data.student.lastName);
+    setStudentname(data.student.firstName + " " + data.student.lastName);
     val = data.student.firstName;
   }
 

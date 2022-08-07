@@ -134,7 +134,7 @@ export const resolvers = {
       if (verified) {
         const value = await context.prisma.teacher_Note.findMany({
           where: {
-            teacherId: args.teacherId,
+            authorId: args.teacherId,
             courseId: args.courseId,
             category: args.category,
             available: true,

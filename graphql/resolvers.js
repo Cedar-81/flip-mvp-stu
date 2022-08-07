@@ -7,7 +7,10 @@ const nodemailer = require("nodemailer");
 const sendEmail = async (val) => {
   let testAccount = await nodemailer.createTestAccount();
   var smtpTransport = require("nodemailer-smtp-transport");
-  console.log(process.env.APP_EMAIL, process.env.APP_PASSWORD);
+  console.log(
+    process.env.NEXT_PUBLIC_APP_EMAIL,
+    process.env.NEXT_PUBLIC_APP_PASSWORD
+  );
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport(
     smtpTransport({

@@ -21,6 +21,8 @@ const Auth = gql`
   }
 `;
 
+console.log("layout");
+
 function Layout({ children }) {
   const router = useRouter();
   const {
@@ -45,24 +47,16 @@ function Layout({ children }) {
   refetch();
 
   useEffect(() => {
-    if (router.pathname == "/auth/signup") {
-      router.push("/auth/signup");
-      return;
-    } else if (router.pathname == "/auth/verification") {
-      setIsAuth(false);
-      router.push("/auth/verification");
-      return;
-    } else if (router.pathname == "/auth/signin") {
-      setIsAuth(false);
-      router.push("/auth/signin");
-      return;
-    } else if (router.pathname.includes("/student") && data) {
-      if (data.auth === "authorized") {
-        setIsAuth(true);
-        return;
-      } else if (data.auth === "unauthorized") {
-        router.push("/auth/signin");
-        return;
+    if (data) {
+      if (data && !router.pathname.includes("/auth")) {
+        if (data.auth === "authorized") {
+          setIsAuth(true);
+          return;
+        } else if (data.auth === "unauthorized") {
+          setIsAuth(false);
+          router.push("/auth/signin");
+          return;
+        }
       }
     }
   }, [data]);

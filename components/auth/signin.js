@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { AuthContext } from "../contexts/authcontext";
 import { useRouter } from "next/router";
@@ -23,9 +23,12 @@ function Signin() {
   const router = useRouter();
 
   const { setIsAuth, isAuth } = useContext(AuthContext);
-  if (isAuth) {
-    router.push("/student/bookshelf");
-  }
+
+  useEffect(() => {
+    if (isAuth) {
+      router.push("/student/bookshelf");
+    }
+  }, []);
 
   const [login_student, { data, loading, error }] = useMutation(loginStudent);
   const [btntxt, setBtntxt] = useState("Sign In");
@@ -81,7 +84,7 @@ function Signin() {
 
     setPassword("");
     setEmail("");
-    return setIsAuth(true), router.push("/student/bookshelf");
+    return setIsAuth(true), router.push("/student");
   };
 
   return (

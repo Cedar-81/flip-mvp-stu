@@ -10,7 +10,7 @@ function Index() {
 
   return (
     <div className="h-full overflow-y-hidden flex-row items-center justify-center w-full ">
-      <Read className="h-[67%] mt-8 mx-auto opacity-75" />
+      <Read className="h-[67%] mt-8 w-full mx-auto opacity-75" />
       <div className="w-full text-center mt-4">
         <h3 className=" text-3xl text-dark_color_2 font-[Fira-sans]">
           Ready to read? lets get started.

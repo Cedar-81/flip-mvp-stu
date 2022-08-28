@@ -8,8 +8,8 @@ function Index() {
     setTopbaraction((prev) => "Welcome");
   }, []);
   return (
-    <div className="h-[67%] mt-8 mx-auto opacity-75">
-      <Welcome className="h-full mt-8 mx-auto opacity-75" />
+    <div className=" md:h-[67%] mt-[20%] md:mt-8 w-full overflow-y-auto md:overflow-y-hidden mx-auto opacity-75">
+      <Welcome className="h-full md:mt-8 w-full mx-auto opacity-75" />
       <div className="w-full text-center mt-4">
         <h3 className=" text-3xl font-[Fira-sans]">
           Welcome Aboard, lets get started.

@@ -118,7 +118,7 @@ function Signup() {
 
     setErrorMsg("New Profile Created Successfully");
     setBtntxt("Created");
-    router.push("/auth/verification");
+    router.push(`/auth/verification/${create.data.createStudent}`);
 
     setTimeout(() => {
       setErrorMsg("");
@@ -172,6 +172,7 @@ function Signup() {
           <input
             onChange={get_student_info}
             className={`input ${styles.input}`}
+            onKeyUp={(e) => (e.key === "Enter" ? checker() : null)}
             type="text"
             name="firstname"
             value={studentinfo?.firstname}
@@ -180,6 +181,7 @@ function Signup() {
           <input
             onChange={get_student_info}
             className={`input ${styles.input}`}
+            onKeyUp={(e) => (e.key === "Enter" ? checker() : null)}
             type="text"
             name="lastname"
             value={studentinfo?.lastname}
@@ -190,6 +192,7 @@ function Signup() {
           <input
             onChange={get_student_info}
             className={`input ${styles.input}`}
+            onKeyUp={(e) => (e.key === "Enter" ? checker() : null)}
             type="email"
             name="email"
             value={studentinfo?.email}
@@ -198,6 +201,7 @@ function Signup() {
           <input
             onChange={get_student_info}
             className={`input ${styles.input}`}
+            onKeyUp={(e) => (e.key === "Enter" ? checker() : null)}
             type="tel"
             name="tel"
             value={studentinfo?.tel}
@@ -209,6 +213,7 @@ function Signup() {
             <input
               onChange={get_student_info}
               className={`input ${styles.input}`}
+              onKeyUp={(e) => (e.key === "Enter" ? checker() : null)}
               type="text"
               name="address"
               value={studentinfo?.address}
@@ -217,6 +222,7 @@ function Signup() {
             <input
               onChange={get_student_info}
               className={`input ${styles.input}`}
+              onKeyUp={(e) => (e.key === "Enter" ? checker() : null)}
               type="number"
               name="postal_code"
               value={studentinfo?.postal_code}
@@ -227,6 +233,7 @@ function Signup() {
             <input
               onChange={get_student_info}
               className={`input ${styles.input}`}
+              onKeyUp={(e) => (e.key === "Enter" ? checker() : null)}
               type="text"
               name="country"
               value={studentinfo?.country}
@@ -235,6 +242,7 @@ function Signup() {
             <input
               onChange={get_student_info}
               className={`input ${styles.input}`}
+              onKeyUp={(e) => (e.key === "Enter" ? checker() : null)}
               type="text"
               name="state"
               value={studentinfo?.state}
@@ -246,6 +254,7 @@ function Signup() {
           <input
             onChange={get_student_info}
             className={`input ${styles.input}`}
+            onKeyUp={(e) => (e.key === "Enter" ? checker() : null)}
             type="password"
             name="new_password"
             value={studentinfo?.new_password}
@@ -254,6 +263,7 @@ function Signup() {
           <input
             onChange={get_student_info}
             className={`input ${styles.input}`}
+            onKeyUp={(e) => (e.key === "Enter" ? checker() : null)}
             type="password"
             name="confirm_password"
             value={studentinfo?.confirm_password}

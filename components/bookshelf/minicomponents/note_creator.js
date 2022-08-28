@@ -73,10 +73,8 @@ function Note_creator() {
   };
 
   const create = () => {
-    console.log("here again");
     setCreatetype("editor");
     addTeacherNote({ variables: { input: inputVal } });
-    console.log("data", data);
   };
 
   setShelf2(false);
@@ -84,7 +82,7 @@ function Note_creator() {
 
   return (
     <div className="w-full h-[100vh] fixed top-0 z-[68] bg-dark_color ">
-      <div className="w-[20rem] relative min-h-[11rem] h-max mt-[13%] bg-accent_bkg_color pt-[1rem] rounded-lg shadow-lg px-[1rem] mx-auto my-auto ">
+      <div className="w-[20rem] relative min-h-[11rem] h-max mt-[40%] md:mt-[13%] bg-accent_bkg_color pt-[1rem] rounded-lg shadow-lg px-[1rem] mx-auto my-auto ">
         <div
           onClick={() => {
             setCreate(false);
@@ -101,6 +99,7 @@ function Note_creator() {
         </p>
         <input
           type={"text"}
+          onKeyUp={(e) => (e.key === "Enter" ? create() : null)}
           onChange={(e) => setNotetitle(e.target.value)}
           className="w-full h-10 px-2 mt-[1.2rem] focus:shadow-lg focus:bg-main_color rounded-md outline-none"
           placeholder="Enter topic/title"

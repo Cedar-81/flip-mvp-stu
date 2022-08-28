@@ -6,9 +6,6 @@ import { StudentContext } from "./contexts/studentcontext";
 import Class_course from "./nav/minicomponents/class_course";
 import Sidenav2 from "./nav/minicomponents/sidenav2";
 import Sidenav3 from "./nav/minicomponents/sidenav3";
-import Sidebar from "./nav/minicomponents/sidebar";
-import Sidebar2 from "./nav/minicomponents/sidebar2";
-import Sidebar3 from "./nav/minicomponents/sidebar3";
 import Newclass from "./nav/minicomponents/newclass";
 import Note_deletor from "./bookshelf/minicomponents/note_deletor";
 import { AuthContext } from "./contexts/authcontext";
@@ -34,6 +31,7 @@ function Layout({ children }) {
     sidebartype,
     classcoursedata,
     notedata,
+    setStudentid,
     toggle_menu,
   } = useContext(StudentContext);
   const { auth, setIsAuth, isAuth, authType, setAuth } =
@@ -49,11 +47,13 @@ function Layout({ children }) {
   useEffect(() => {
     if (data) {
       if (data && !router.pathname.includes("/auth")) {
-        if (data.auth === "authorized") {
-          setIsAuth(true);
+        if (JSON.parse(data.auth).status === "authorized") {
+          setStudentid(JSON.parse(data.auth).id);
+          if (!isAuth) setIsAuth(true);
           return;
-        } else if (data.auth === "unauthorized") {
-          setIsAuth(false);
+        } else if (JSON.parse(data.auth).status === "unauthorized") {
+          setStudentid(JSON.parse(data.auth).id);
+          if (isAuth) setIsAuth(false);
           router.push("/auth/signin");
           return;
         }
@@ -65,13 +65,20 @@ function Layout({ children }) {
     <div className="flex w-[100%] max-w-[100%] h-[100vh] ">
       {isAuth && (
         <div className="contents border-2">
-          <div className="sidebar_displays md:none z-40 w-max top-0 h-full absolute bg-main_color">
+          {/* <div className="sidebar_displays md:none z-40 w-max top-0 h-full absolute bg-main_color">
             {sidebartype == "bar2" && <Sidebar2 />}
             {sidebartype == "bar3" && <Sidebar3 />}
             {sidebar && <Sidebar />}
-          </div>
-          <div className="md:contents hidden">
-            <div className="flex">
+          </div> */}
+          <div className="md:contents md:static absolute md:w-[12rem] md:mt-0 md:h-full w-full border-2 border-accent_color mt-[10%] h-[90%]">
+            {/* smaller screens */}
+            <div className="md:hidden block h-full">
+              {sidebar && <Sidenav />}
+              {shelf2 && <Sidenav2 />}
+              {shelf3 && <Sidenav3 />}
+            </div>
+            {/* medium screens and above */}
+            <div className="md:flex hidden h-full">
               <Sidenav />
               {shelf2 && <Sidenav2 />}
               {shelf3 && <Sidenav3 />}

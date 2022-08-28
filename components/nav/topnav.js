@@ -39,9 +39,14 @@ function Topnav() {
   if (loading) {
     val = "loading...";
   }
-  if (data && data.student) {
+
+  if (
+    data &&
+    data.student.firstName !== undefined &&
+    data.student.lastName !== undefined
+  ) {
     setStudentname(data.student.firstName + " " + data.student.lastName);
-    val = data.student.firstName;
+    val = data.student.firstName.trim();
   }
 
   useEffect(() => {
@@ -53,7 +58,7 @@ function Topnav() {
   }, [studentprofile, data]);
 
   return (
-    <div className="topnav py-2 relative md:w-full z-[60] top-0 flex justify-between h-[7rem] md:h-[10%] items-center w-full shadow-md md:px-8 bg-accent_bkg_color">
+    <div className="topnav py-2 relative md:w-full z-[60] top-0 flex justify-between h-[10%] items-center w-full shadow-md md:px-8 bg-accent_bkg_color">
       {create && (
         <input
           placeholder="Untitled"
@@ -74,17 +79,17 @@ function Topnav() {
           <div
             onClick={() => {
               setTopbaraction("Personal");
-              router.push("/student/settings");
+              router.push(`/${studentid}/settings`);
             }}
             id="profile_img"
             className="profile_img rounded-full cursor-pointer bg-no-repeat bg-cover bg-center h-[3rem] md:h-9 md:w-9 ml-4 w-[3rem] bg-main_color shadow-lg border-[1px] border-accent_color"
           ></div>
-          <h2 className="greeting font-medium text-[2rem] md:text-sm w-max ml-2">
+          <h2 className="hidden md:block greeting font-medium text-base md:text-sm w-max ml-2">
             Hello, {" " + val.length > 8 ? val.substring(0, 8) + "..." : val}!
           </h2>
         </div>
 
-        <div className="icons mr-4 flex justify-between w-[9rem] md:w-max">
+        <div className="icons mr-4 flex justify-between  w-[28%] md:w-max">
           <div
             onClick={() => {
               toggle_class_course();

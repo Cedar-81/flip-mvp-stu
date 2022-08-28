@@ -26,6 +26,9 @@ export const typeDefs = gql`
     createStudent(input: createStudentInput): String
     verifyEmail(input: verifyEmailInput): String
     signIn(input: signInInput): String
+    resendEmail(input: resendEmailInput): String
+    createPasswordLink(input: createPasswordLinkInput): String
+    updatePassword(input: updatePasswordInput): String
   }
 
   type Teacher_Note {
@@ -154,6 +157,19 @@ export const typeDefs = gql`
 
   input verifyEmailInput {
     code: String!
+  }
+
+  input resendEmailInput {
+    email: String!
+  }
+
+  input createPasswordLinkInput {
+    email: String
+  }
+
+  input updatePasswordInput {
+    link: String
+    newPassword: String
   }
 
   input addStudentNoteInput {

@@ -12,18 +12,20 @@ function Sidenav() {
     setClass_course,
     classcoursedata,
     studentname,
+    studentid,
+    toggle_shelf2,
   } = useContext(StudentContext);
 
   const show_shelf = () => {
     setTopbaraction((prev) => "Notes");
+    toggle_shelf2();
     if (router.query.id === undefined) {
-      router.push("/student/bookshelf");
+      router.push(`/${studentid}/bookshelf`);
     }
-    setShelf2(true);
   };
 
   return (
-    <div className="w-[12rem] bg-sidenav_bkg_color shadow-md relative z-[67] top-0 h-[100%]">
+    <div className="md:w-[12rem] md:block w-[60%] bg-sidenav_bkg_color shadow-md relative z-[67] top-0 h-[100%]">
       <div className=" absolute bottom-2 right-2 px-2">
         <Image src="/assets/logo.png" width={67} height={28} />
       </div>
@@ -36,13 +38,15 @@ function Sidenav() {
         <div
           onClick={() => {
             setClass_course((prev) => !prev);
-            router.push("/student/settings");
+            router.push(`/${studentid}/settings`);
           }}
           className="initials border-2 w-[3rem] my-auto flex justify-center items-center text-lg font-semibold text-main_color bg-accent_color rounded-md h-[3rem]"
         >
-          {studentname.trim().length > 0
+          {studentname !== undefined && studentname.trim().length > 0
             ? studentname.split(" ")[0][0].toUpperCase() +
-              studentname.split(" ")[1][0].toUpperCase()
+              studentname
+                .split(" ")
+                [studentname.split(" ").length - 1][0].toUpperCase()
             : "..."}
         </div>
         <div className="det_txt ml-[-1.7rem] my-auto">
@@ -82,7 +86,7 @@ function Sidenav() {
           onClick={() => {
             setTopbaraction("Settings");
             setCreate(false);
-            router.push("/student/settings");
+            router.push(`/${studentid}/settings`);
           }}
           className="icon_con flex mx-1 px-4 rounded-md items-center text-center py-2 hover:text-dark_color text-dark_color_2 cursor-pointer mt-2 hover:bg-accent_bkg_hover"
         >

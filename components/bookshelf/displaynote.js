@@ -46,6 +46,7 @@ function Displaynote() {
     setNotedata,
     notetype,
     classcoursedata,
+    studentid,
   } = useContext(StudentContext);
 
   const router = useRouter();
@@ -56,7 +57,7 @@ function Displaynote() {
       (notetype === "school" &&
         (classcoursedata.classId === "" || classcoursedata.courseId === ""))
     ) {
-      router.push("/student/bookshelf");
+      router.push(`/${studentid}/bookshelf`);
     }
   }, []);
 
@@ -110,7 +111,7 @@ function Displaynote() {
         <>
           <div className="note_container m-2 w-[8.5in] mx-auto bg-accent_bkg_color shadow-xl rounded-xl p-4 min-h-full">
             <p className="date text-sm text-accent_color font-medium">
-              {moment(new Date(+val?.updatedAt)).format("DD/MM/YYYY")}
+              {moment(new Date(+val?.updatedAt)).format("LL")}
             </p>
             <div className="content mt-4">
               <h2 className="note_heading text-2xl font-medium">

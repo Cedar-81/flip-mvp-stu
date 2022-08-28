@@ -84,9 +84,18 @@ function Newclass() {
     });
   };
 
+  if (typeof document != "undefined") {
+    document.getElementById("nc_main_con").addEventListener("keyup", (e) => {
+      e.key === "Enter" ? add() : null;
+    });
+  }
+
   return (
-    <div className="w-full h-[100vh] fixed top-0 z-50 bg-dark_color">
-      <div className="w-[20rem] relative min-h-[11rem] h-max mt-[13%] bg-accent_bkg_color pt-[1rem] rounded-lg shadow-lg px-[1rem] mx-auto my-auto ">
+    <div
+      id="nc_main_con"
+      className="w-full h-[100vh] fixed top-0 z-50 bg-dark_color"
+    >
+      <div className="w-[20rem] relative min-h-[11rem] h-max md:mt-[13%] bg-accent_bkg_color pt-[1rem] rounded-lg shadow-lg px-[1rem] mx-auto mt-[40%] md:my-auto ">
         <div
           onClick={() => setClasscoursedata({ ...classcoursedata, action: "" })}
           className="cancel absolute right-5 cursor-pointer"

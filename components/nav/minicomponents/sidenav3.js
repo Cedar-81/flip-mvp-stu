@@ -38,6 +38,8 @@ function Sidenav3() {
   const router = useRouter();
   const {
     setShelf3,
+    setShelf2,
+    setSidebar,
     notetype,
     setCreate,
     setSidebartype,
@@ -47,6 +49,7 @@ function Sidenav3() {
     setCreatednoteid,
     setClass_course,
     studentid,
+    toggle_shelf3,
   } = useContext(StudentContext);
 
   // let notes = [];
@@ -164,7 +167,12 @@ function Sidenav3() {
     return (
       <p
         key={index}
-        onClick={() => read_note(val.id)}
+        onClick={() => {
+          setSidebar(false);
+          setShelf2(false);
+          setShelf3(false);
+          read_note(val.id);
+        }}
         className="text hover:text-main_color hover:bg-accent_bkg_hover mx-1 rounded-md px-2 cursor-pointer py-2"
       >
         {val.topic.length > 20 && val.id !== "123"
@@ -179,7 +187,7 @@ function Sidenav3() {
       setSidebartype("");
       setCreate(true);
       setCreatetype("untitled");
-      return router.push("/student/bookshelf/personal/new");
+      return router.push(`/${studentid}/bookshelf/personal/new`);
     }
   };
 
@@ -196,20 +204,22 @@ function Sidenav3() {
     if (notetype === "school") {
       if (classcoursedata.classId !== "" && classcoursedata.courseId !== "") {
         setCreatednoteid(id);
-        router.push("/student/bookshelf/" + notetype + "/" + id);
+        router.push(`/${studentid}/bookshelf/` + notetype + "/" + id);
       } else {
         setClass_course(true);
       }
     } else if (notetype === "personal") {
       setCreatednoteid(id);
-      router.push("/student/bookshelf/" + notetype + "/" + id);
+      router.push(`/${studentid}/bookshelf/` + notetype + "/" + id);
     }
   };
 
   return (
-    <div className="w-[12rem]  overflow-y-auto z-[61] h-[100%] bg-sidenav_bkg_color shadow-lg">
+    <div className="md:w-[12rem] w-[60%] absolute mt-[8%] md:static md:mt-0 md:block z-[62] h-[100%] bg-sidenav_bkg_color shadow-lg">
       <div
-        onClick={() => setShelf3(false)}
+        onClick={() => {
+          setShelf3(false), toggle_shelf3();
+        }}
         className="icon_con bg-sidenav_bkg_color mt-4 w-full sticky top-1 cursor-pointer text-right"
       >
         <span className="material-icons text-sm text-accent_color">

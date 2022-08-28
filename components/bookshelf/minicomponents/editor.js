@@ -78,7 +78,7 @@ function Editor({ edit_content }) {
 
   useEffect(() => {
     if (notetype === "school") {
-      router.push("/student/bookshelf");
+      router.push(`/${studentid}/bookshelf`);
     }
   }, []);
 
@@ -120,7 +120,7 @@ function Editor({ edit_content }) {
       updateContent: "",
       ready: false,
     });
-    router.push("/student/bookshelf/" + notetype + "/" + creatednoteid);
+    router.push(`/${studentid}/bookshelf/` + notetype + "/" + creatednoteid);
   };
 
   useEffect(() => {

@@ -21,7 +21,7 @@ a {
   box-sizing: border-box;
 }
 
-.side_con:hover > .icon {
+.side_con:hover>.icon {
   color: #fff !important;
 }
 
@@ -45,12 +45,22 @@ a {
   margin-bottom: 10rem;
 }
 
+@media only screen and (max-width: 760px) {
+  .container .ql-editor {
+    margin-top: 29%;
+    padding: 2rem;
+    width: 100%;
+    min-height: 70vh;
+  }
+}
+
 .container .ql-container.ql-bubble {
   z-index: 50;
 }
 
 .container .ql-toolbar.ql-snow {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   position: fixed;
   top: 10%;
@@ -94,32 +104,42 @@ a {
 /* note display */
 
 .note_content h1 {
-  font-size: 1.25rem; /* 20px */
-  line-height: 1.75rem; /* 28px */
+  font-size: 1.25rem;
+  /* 20px */
+  line-height: 1.75rem;
+  /* 28px */
   font-weight: 500;
 }
 
 .note_content h2 {
-  font-size: 1.125rem; /* 18px */
-  line-height: 1.75rem; /* 28px */
+  font-size: 1.125rem;
+  /* 18px */
+  line-height: 1.75rem;
+  /* 28px */
   font-weight: 500;
 }
 
 .note_content h3 {
-  font-size: 1rem; /* 16px */
-  line-height: 1.5rem; /* 24px */
+  font-size: 1rem;
+  /* 16px */
+  line-height: 1.5rem;
+  /* 24px */
   font-weight: 500;
 }
 
 .note_content h4 {
-  font-size: 0.875rem; /* 14px */
-  line-height: 1.25rem; /* 20px */
+  font-size: 0.875rem;
+  /* 14px */
+  line-height: 1.25rem;
+  /* 20px */
   font-weight: 400;
 }
 
 .note_content h5 {
-  font-size: 0.75rem; /* 12px */
-  line-height: 1rem; /* 16px */
+  font-size: 0.75rem;
+  /* 12px */
+  line-height: 1rem;
+  /* 16px */
   font-weight: 400;
 }
 

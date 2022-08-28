@@ -23,13 +23,6 @@ function Signin() {
   const router = useRouter();
 
   const { setIsAuth, isAuth } = useContext(AuthContext);
-
-  useEffect(() => {
-    if (isAuth) {
-      router.push("/student/bookshelf");
-    }
-  }, []);
-
   const [login_student, { data, loading, error }] = useMutation(loginStudent);
   const [btntxt, setBtntxt] = useState("Sign In");
   const [err_msg, setErrorMsg] = useState("");
@@ -84,7 +77,7 @@ function Signin() {
 
     setPassword("");
     setEmail("");
-    return setIsAuth(true), router.push("/student");
+    return setIsAuth(true), router.push(`/${JSON.parse(login.data.signIn).id}`);
   };
 
   return (
@@ -131,6 +124,7 @@ function Signin() {
             type={"email"}
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            onKeyUp={(e) => (e.key === "Enter" ? checker() : null)}
             placeholder="Email"
           />
           <input
@@ -138,6 +132,7 @@ function Signin() {
             type={"password"}
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            onKeyUp={(e) => (e.key === "Enter" ? checker() : null)}
             placeholder="Password"
           />
         </div>

@@ -2,76 +2,7 @@ import { sign } from "jsonwebtoken";
 const bcrypt = require("bcryptjs");
 import Cookies from "cookies";
 import isAuth from "./isAuth";
-const nodemailer = require("nodemailer");
-
-const sendEmail = async (val) => {
-  let testAccount = await nodemailer.createTestAccount();
-  try {
-    var smtpTransport = require("nodemailer-smtp-transport");
-    console.log(
-      process.env.NEXT_PUBLIC_APP_EMAIL,
-      process.env.NEXT_PUBLIC_APP_PASSWORD
-    );
-    // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport(
-      smtpTransport({
-        service: "gmail",
-        host: "smtp.gmail.com",
-        auth: {
-          user: `${process.env.NEXT_PUBLIC_APP_EMAIL}`, // generated ethereal user
-          pass: `${process.env.NEXT_PUBLIC_APP_PASSWORD}`, // generated ethereal password
-        },
-        tls: {
-          rejectUnauthorized: false,
-        },
-      })
-    );
-
-    // send mail with defined transport object
-    let info = await transporter.sendMail({
-      from: `"Flip Classroom" <readatetech@gmail.com>`, // sender address
-      to: `${val.to_email}`, // list of receivers
-      subject: "Flip Classroom Email Verification", // Subject line
-      // text: "Hello world?", // plain text body
-      html: `<html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,600;1,700;1,800;1,900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:wght@300&display=swap"
-        rel="stylesheet"
-      />
-      <title>Flip Classroom Email Verification</title>
-    </head>
-    <body style="font-family: 'Fira Sans', sans-serif">
-      <div
-        style="
-          height: max-content;
-          width: 100%;
-          background-color: rgb(27, 27, 27);
-          text-align: center;
-          color: white;
-          padding: 2rem 0;
-        "
-      >
-        <h2 style="">Email Verification</h2>
-        <h3 style="width: 90%; margin: auto; font-size: small">
-          This is an email verification code from flip classroom, if you didn't
-          signup for this please ignore
-        </h3>
-        <p style="font-size: 50px">Code: ${val.message}</p>
-      </div>
-    </body>
-  </html>`, // html body
-    });
-    console.log(info);
-  } catch (e) {
-    return e;
-  }
-};
+import sendEmail from "./sendEmail";
 
 export const resolvers = {
   Query: {
@@ -97,6 +28,7 @@ export const resolvers = {
 
     student: async (parent, args, context) => {
       const { verified, payload } = isAuth(context.req);
+      console.log("student", payload.studentId);
       if (verified) {
         return await context.prisma.student.findUnique({
           where: {
@@ -169,9 +101,11 @@ export const resolvers = {
     auth: async (parent, args, context) => {
       const { verified, payload } = isAuth(context.req);
       if (verified) {
-        return "authorized";
+        const val = { status: "authorized", id: payload.studentId };
+        return JSON.stringify(val);
       } else {
-        return "unauthorized";
+        const val = { status: "unauthorized", id: "" };
+        return JSON.stringify(val);
       }
     },
   },
@@ -186,7 +120,7 @@ export const resolvers = {
           category: input.category,
           content: input.content,
           editableContent: input.editableContent,
-          authorId: input.authorId,
+          authorId: payload.studentId,
           updatedAt: upadateDate,
         };
         return await context.prisma.student_Note.create({
@@ -308,6 +242,58 @@ export const resolvers = {
       }
     },
 
+    createPasswordLink: async (parent, { input }, context) => {
+      try {
+        const val = await context.prisma.student.findUnique({
+          where: {
+            email: input.email,
+          },
+        });
+        const inputVal = {
+          to_email: val.email,
+          message: `https://localhost:3000/auth/changepassword/${val.id}`,
+          type: "new_password",
+        };
+        sendEmail(inputVal);
+        return "Successful";
+      } catch (e) {
+        console.log(e);
+        return "Failed";
+      }
+    },
+
+    updatePassword: async (parent, { input }, context) => {
+      try {
+        const cookies = new Cookies(context.req, context.res, { secure: true });
+        const password = input.newPassword;
+        const hashedPassword = await bcrypt.hash(password, 12);
+        await context.prisma.student.update({
+          where: {
+            id: input.link,
+          },
+          data: {
+            password: hashedPassword,
+          },
+        });
+        const access = (key, exp) => {
+          return sign({ teacherId: "null" }, key, {
+            expiresIn: exp,
+          });
+        };
+        cookies.set("flip_classroom_auth_students", access(`null`, "0"), {
+          httpOnly: true,
+          path: "/",
+          expires: 0,
+          sameSite: "strict",
+          secure: process.env.NODE_ENV === "production" ? true : false,
+        });
+        return "Verified";
+      } catch (e) {
+        console.log(e);
+        return "Failed";
+      }
+    },
+
     createStudent: async (parent, { input }, context) => {
       const generateCode =
         Date.now().toString(36) +
@@ -340,13 +326,15 @@ export const resolvers = {
         const emailval = {
           to_email: input.email,
           message: generateCode,
+          type: "signup",
         };
         try {
           sendEmail(emailval);
         } catch (error) {
           console.log(error);
+          return "Server Error";
         }
-        return "Successful";
+        return val.email;
       } catch (e) {
         console.log(e);
         return "Duplicate Email";
@@ -369,6 +357,30 @@ export const resolvers = {
           console.log(error);
         }
       } catch (e) {
+        return "Failed";
+      }
+    },
+
+    resendEmail: async (parent, { input }, context) => {
+      try {
+        const val = await context.prisma.student.findUnique({
+          where: {
+            email: input.email,
+          },
+        });
+        const emailval = {
+          to_email: input.email,
+          message: val.emailCode,
+          type: "signup",
+        };
+        try {
+          sendEmail(emailval);
+        } catch (e) {
+          console.log(e);
+        }
+        return "Successful";
+      } catch (e) {
+        console.log(e);
         return "Failed";
       }
     },
@@ -418,10 +430,10 @@ export const resolvers = {
           );
 
           console.log(isAuth(context.req));
-          return "Verified";
+          return JSON.stringify({ status: "Verified", id: val.id });
         }
       } catch (e) {
-        return "Failed";
+        return JSON.stringify({ status: "Failed", id: "" });
       }
     },
   },

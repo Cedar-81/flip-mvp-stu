@@ -1,7 +1,7 @@
 import { verify } from "jsonwebtoken";
 
 export default function isAuth(req) {
-  console.log(process.env.NEXT_PUBLIC_JWT_COOKIE_TOKEN);
+  console.log("is auth", process.env.NEXT_PUBLIC_JWT_COOKIE_TOKEN);
   try {
     const payload = verify(
       req.cookies.flip_classroom_auth_students,

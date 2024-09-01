@@ -7,107 +7,107 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("flip_student_PRISMA_URL") // uses connection pooling
+  // directUrl = env("flip_student_URL_NON_POOLING") // uses a direct connection
 }
 
 model Teacher {
-  id String @id @default(cuid())
-  firstName String
-  lastName String
-  address String
-  state String
-  country String
-  postalCode String
-  email String @unique
-  verifiedEmail Boolean @default(false)
-  emailCode String @default("") @unique
-  image String
-  phoneNo String
-  classes Class[]
-  stc Student_Teacher_Course[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime 
-  password String 
+  id            String                   @id @default(cuid())
+  firstName     String
+  lastName      String
+  address       String
+  state         String
+  country       String
+  postalCode    String
+  email         String                   @unique
+  verifiedEmail Boolean                  @default(false)
+  emailCode     String                   @unique @default("")
+  image         String
+  phoneNo       String
+  classes       Class[]
+  stc           Student_Teacher_Course[]
+  createdAt     DateTime                 @default(now())
+  updatedAt     DateTime
+  password      String
 }
 
 model Student {
-  id String @id @default(cuid())
-  firstName String
-  lastName String
-  address String
-  state String
-  country String
-  postalCode String
-  email String @unique
-  verifiedEmail Boolean @default(false)
-  emailCode String @default("") @unique
-  image String
-  dateOfBirth String
-  phoneNo String?
-  class String
-  notes Student_Note[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime 
-  password String
+  id            String         @id @default(cuid())
+  firstName     String
+  lastName      String
+  address       String
+  state         String
+  country       String
+  postalCode    String
+  email         String         @unique
+  verifiedEmail Boolean        @default(false)
+  emailCode     String         @unique @default("")
+  image         String
+  dateOfBirth   String
+  phoneNo       String?
+  class         String
+  notes         Student_Note[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime
+  password      String
 }
 
 model Course {
-  id String @id @default(cuid())
-  course String
-  class Class? @relation(fields: [classId], references: [id], onDelete: Cascade)
+  id      String                  @id @default(cuid())
+  course  String
+  class   Class?                  @relation(fields: [classId], references: [id], onDelete: Cascade)
   classId String?
-  stc Student_Teacher_Course? @relation(fields: [stcId], references: [id], onDelete: Cascade)
-  stcId String?
-  note Teacher_Note[]
+  stc     Student_Teacher_Course? @relation(fields: [stcId], references: [id], onDelete: Cascade)
+  stcId   String?
+  note    Teacher_Note[]
 }
 
-model Class { 
-  id String @id @default(cuid())
-  class String
-  courses Course[]
-  stu Student_Teacher_Course[]
-  teacher Teacher @relation(fields: [teacherId], references: [id])
+model Class {
+  id        String                   @id @default(cuid())
+  class     String
+  courses   Course[]
+  stu       Student_Teacher_Course[]
+  teacher   Teacher                  @relation(fields: [teacherId], references: [id])
   teacherId String
-  classCode String? @unique
-  note Teacher_Note[]
+  classCode String?                  @unique
+  note      Teacher_Note[]
 }
-
 
 model Teacher_Note {
-  id String @id @default(cuid())
-  topic String
-  class Class? @relation(fields: [classId], references: [id], onDelete: Cascade)
-  classId String?
-  course Course? @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  courseId String?
-  category String
-  content String
-  available Boolean @default(false)
+  id              String   @id @default(cuid())
+  topic           String
+  class           Class?   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  classId         String?
+  course          Course?  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId        String?
+  category        String
+  content         String
+  available       Boolean  @default(false)
   editableContent String
-  authorId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime 
+  authorId        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime
 }
 
 model Student_Note {
-  id String @id @default(cuid())
-  topic String
-  category String
-  content String
+  id              String   @id @default(cuid())
+  topic           String
+  category        String
+  content         String
   editableContent String
-  author Student @relation(fields: [authorId], references: [id])
-  authorId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime 
+  author          Student  @relation(fields: [authorId], references: [id])
+  authorId        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime
 }
 
 model Student_Teacher_Course {
-  id String @id @default(cuid())
-  studentId String
-  class Class? @relation(fields: [classId], references: [id], onDelete: Cascade)
-  classId String?
-  teacher Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
-  teacherId String 
+  id         String   @id @default(cuid())
+  studentId  String
+  class      Class?   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  classId    String?
+  teacher    Teacher  @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  teacherId  String
   courseList Course[]
-  verified Boolean
+  verified   Boolean
 }

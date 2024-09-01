@@ -55,7 +55,7 @@ function Signin() {
     const login = await login_student({
       variables: { input: inputVal },
     });
-    console.log(login);
+    console.log("login", login);
     if (login.data.signIn === "Failed") {
       return (
         setErrorMsg("Invalid email or password, please try again"),

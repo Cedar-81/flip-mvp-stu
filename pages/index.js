@@ -7,6 +7,7 @@ import { StudentContext } from "../components/contexts/studentcontext";
 function Home() {
   const router = useRouter();
   const { studentid } = useContext(StudentContext);
+  console.log("studentid", studentid);
   useEffect(() => {
     router.push(`/${studentid}`);
   }, []);
